@@ -18,7 +18,7 @@
 
 ## 方言と識別子
 
-GoogleSQLとPostgreSQL方言はDB作成時の選択で、完全なPostgreSQLサーバーではありません。RavaはGoogleSQLのみで、通常のpsql接続口やPGAdapterを用意していません。
+GoogleSQLとPostgreSQL方言はDB作成時の選択で、完全なPostgreSQLサーバーではありません。DatabaseLaboratoryはGoogleSQLのみで、通常のpsql接続口やPGAdapterを用意していません。
 
 <a id="section-2"></a>
 

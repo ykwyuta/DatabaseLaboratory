@@ -1,6 +1,6 @@
 # データベース検証ドキュメント
 
-確認日: 2026-10-26。Ravaが扱う13種類を、同じ7観点で整理します。Composeの実測結果と、公式資料に基づく構成設計を区別します。
+確認日: 2026-10-26。DatabaseLaboratoryが扱う13種類を、同じ7観点で整理します。Composeの実測結果と、公式資料に基づく構成設計を区別します。
 
 ## 読み方
 
@@ -14,14 +14,14 @@
 
 ## DB別の目次
 
-| DB | 対象 | 現在のRava構成 |
+| DB | 対象 | 現在のDatabaseLaboratory構成 |
 | --- | --- | --- |
 | [PostgreSQL](postgresql/README.md) | PostgreSQL 17 | 単体サーバー。pg_stat_statementsをプリロード。HA/論理配信は未構成。 |
 | [MySQL](mysql/README.md) | MySQL 8.4 / InnoDB | 単体InnoDB。binlog/GTID/レプリカの設定は検証目的に合わせて追加。 |
 | [MariaDB](mariadb/README.md) | MariaDB 11.4 / InnoDB | 単体サーバー。MySQLとは別のデータボリュームと初期化SQL。 |
 | [SQL Server](sqlserver/README.md) | SQL Server 2022 Developer / Linux | 単体Developer版。Always On・SQL Server AgentのCDCジョブは未構成。 |
 | [Oracle Database](oracle/README.md) | Oracle Free latest-lite / 実バージョンをV$VERSIONで確認 | 単体CDBとFREEPDB1。Data Guard/RAC/商用管理パックは構成しない。 |
-| [IBM Db2](db2/README.md) | Db2 LUW Community 12.1.5.0 | 単体インスタンスdb2inst1とRAVA DB。HADR/外部CDCは未構成。 |
+| [IBM Db2](db2/README.md) | Db2 LUW Community 12.1.5.0 | 単体インスタンスdb2inst1とDBLAB DB。HADR/外部CDCは未構成。 |
 | [MongoDB](mongodb/README.md) | MongoDB 8.0 / WiredTiger | 認証付きstandalone。replica set・change streams・分散transactionは未構成。 |
 | [Redis](redis/README.md) | Redis 7.4 | 単体・認証あり・AOF有効。Sentinel/Cluster/永続CDC基盤は未構成。 |
 | [ClickHouse](clickhouse/README.md) | ClickHouse 25.8 / MergeTree | 単体MergeTree。Keeper、ReplicatedMergeTree、外部CDCは未構成。 |

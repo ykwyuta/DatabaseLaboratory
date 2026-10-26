@@ -14,4 +14,4 @@ local ok, err = pcall(function()
 end)
 redis.call('DEL', unpack(KEYS))
 if not ok then return redis.error_reply(tostring(err)) end
-return 'rava-redis-ok'
+return 'dblab-redis-ok'

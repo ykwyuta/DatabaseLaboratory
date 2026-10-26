@@ -18,7 +18,7 @@
 
 ## 方言と識別子
 
-非引用識別子は大文字へ折り畳まれます。ユーザーとschemaは強く対応し、別ユーザー表はRAVA.ORDERSのように修飾します。SQL*Plusの/はPLSQLブロックの実行区切りです。
+非引用識別子は大文字へ折り畳まれます。ユーザーとschemaは強く対応し、別ユーザー表はDBLAB.ORDERSのように修飾します。SQL*Plusの/はPLSQLブロックの実行区切りです。
 
 <a id="section-2"></a>
 
@@ -36,7 +36,7 @@ FETCH FIRST/OFFSET、ADD_MONTHS、INTERVAL、LISTAGG、||を使います。NLS�
 
 ## 更新・UPSERT・採番
 
-MERGE、SEQUENCE、IDENTITY、RETURNING INTOを使います。INSERT ALLと複数VALUESの対応は版で違うためRavaはINSERT ALLを使用します。sequenceの欠番を業務番号の連続性と混同しません。
+MERGE、SEQUENCE、IDENTITY、RETURNING INTOを使います。INSERT ALLと複数VALUESの対応は版で違うためDatabaseLaboratoryはINSERT ALLを使用します。sequenceの欠番を業務番号の連続性と混同しません。
 
 <a id="section-5"></a>
 

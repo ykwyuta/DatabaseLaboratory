@@ -53,7 +53,7 @@ sink適用はキー+source versionで冪等化し、broker offset、insertエラ
 ```sql
 SELECT customer_id,count(),sum(amount) FROM events GROUP BY customer_id;
 ```
-Ravaのeventsは追記データであり、CDCのversion/delete列を持つReplacingMergeTree構成ではありません。
+DatabaseLaboratoryのeventsは追記データであり、CDCのversion/delete列を持つReplacingMergeTree構成ではありません。
 
 <a id="sources"></a>
 

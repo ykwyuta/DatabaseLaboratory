@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Manage the Rava lab with Python's standard library and Docker Compose v2."""
+"""Manage the DatabaseLaboratory lab with Python's standard library and Docker Compose v2."""
 import argparse
 from contextlib import closing
 from datetime import datetime, timezone
@@ -14,7 +14,7 @@ import uuid
 ROOT = Path(__file__).resolve().parents[1]
 SERVICES = ('postgres', 'mysql', 'mariadb', 'sqlserver', 'oracle', 'db2',
             'mongo', 'redis', 'clickhouse', 'alloydb', 'spanner')
-PASSWORD = 'Rava_Test_2026!'
+PASSWORD = 'DatabaseLaboratory_Test_2026!'
 COMPOSE = ['docker', 'compose', '--project-directory', str(ROOT),
            '-f', str(ROOT / 'compose.yaml'), '--profile', '*']
 
@@ -34,17 +34,17 @@ def client(service, filename):
     """Return a bundled client invocation; host-side drivers are unnecessary."""
     path = '/demo/sql/' + filename
     if service in ('postgres', 'alloydb'):
-        return ['psql', '-v', 'ON_ERROR_STOP=1', '-U', 'rava', '-d', 'rava', '-tA', '-F', '|', '-f', path]
+        return ['psql', '-v', 'ON_ERROR_STOP=1', '-U', 'dblab', '-d', 'dblab', '-tA', '-F', '|', '-f', path]
     if service in ('mysql', 'mariadb'):
-        return [service, '--default-character-set=utf8mb4', '-h', '127.0.0.1', '-u', 'rava',
-                '-D', 'rava', '-NB', '-e', 'source ' + path]
+        return [service, '--default-character-set=utf8mb4', '-h', '127.0.0.1', '-u', 'dblab',
+                '-D', 'dblab', '-NB', '-e', 'source ' + path]
     if service == 'sqlserver':
-        return ['/opt/mssql-tools18/bin/sqlcmd', '-S', '127.0.0.1', '-U', 'rava',
-                '-C', '-b', '-d', 'rava', '-h', '-1', '-W', '-f', '65001', '-s', '|', '-i', path]
+        return ['/opt/mssql-tools18/bin/sqlcmd', '-S', '127.0.0.1', '-U', 'dblab',
+                '-C', '-b', '-d', 'dblab', '-h', '-1', '-W', '-f', '65001', '-s', '|', '-i', path]
     if service == 'oracle':
-        return ['sqlplus', '-L', '-s', f'rava/"{PASSWORD}"@//127.0.0.1:1521/FREEPDB1', '@' + path]
+        return ['sqlplus', '-L', '-s', f'dblab/"{PASSWORD}"@//127.0.0.1:1521/FREEPDB1', '@' + path]
     if service == 'db2':
-        return ['su', '-', 'db2inst1', '-c', f'db2 connect to RAVA >/dev/null && db2 -stf {path}']
+        return ['su', '-', 'db2inst1', '-c', f'db2 connect to DBLAB >/dev/null && db2 -stf {path}']
     raise ValueError(service)
 
 
@@ -72,7 +72,7 @@ def check_rows(service, output, expected):
 def verify(service):
     ids = compose('ps', '-q', service, capture=True).splitlines()
     if len(ids) != 1:
-        raise RuntimeError(f'{service}: start it first: python tools/rava.py up {service}')
+        raise RuntimeError(f'{service}: start it first: python tools/dblab.py up {service}')
     state = json.loads(run(['docker', 'inspect', ids[0]], capture=True))[0]
     if state['State'].get('Health', {}).get('Status') != 'healthy':
         raise RuntimeError(f'{service}: not healthy; inspect logs')
@@ -80,18 +80,18 @@ def verify(service):
     if service == 'spanner':
         compose('exec', '-T', service, 'python', '/demo/spanner.py', '--verify')
     elif service == 'mongo':
-        compose('exec', '-T', service, 'mongosh', '--quiet', '-u', 'rava', '-p', PASSWORD,
-                '--authenticationDatabase', 'admin', 'rava', '/demo/verify.js')
+        compose('exec', '-T', service, 'mongosh', '--quiet', '-u', 'dblab', '-p', PASSWORD,
+                '--authenticationDatabase', 'admin', 'dblab', '/demo/verify.js')
     elif service == 'redis':
         script = (ROOT / 'sql/redis-verify.lua').read_text(encoding='utf-8')
-        prefix = 'rava:verify:' + uuid.uuid4().hex
+        prefix = 'dblab:verify:' + uuid.uuid4().hex
         result = compose('exec', '-T', service, 'redis-cli', '--raw', 'EVAL', script,
                          '5', *(prefix + ':' + str(i) for i in range(5)), capture=True)
-        if result != 'rava-redis-ok':
+        if result != 'dblab-redis-ok':
             raise RuntimeError(f'Redis verification failed: {result}')
     elif service == 'clickhouse':
-        compose('exec', '-T', service, 'clickhouse-client', '--user', 'rava', '--password', PASSWORD,
-                '--database', 'rava', '--multiquery', '--queries-file', '/demo/verify.sql')
+        compose('exec', '-T', service, 'clickhouse-client', '--user', 'dblab', '--password', PASSWORD,
+                '--database', 'dblab', '--multiquery', '--queries-file', '/demo/verify.sql')
     else:
         filename = 'verify-oracle.sql' if service == 'oracle' else '00-verify-counts.sql'
         output = query(service, filename)
@@ -165,7 +165,7 @@ def main():
         local_database(args.kind, args.output)
         return
     if args.action == 'reset' and not args.yes:
-        parser.error('reset deletes every Rava volume; explicitly pass --yes')
+        parser.error('reset deletes every DatabaseLaboratory volume; explicitly pass --yes')
     selected = getattr(args, 'services', [])
     if 'all' in selected:
         selected = list(SERVICES)
@@ -214,5 +214,5 @@ if __name__ == '__main__':
     try:
         main()
     except (subprocess.CalledProcessError, RuntimeError, OSError, ImportError) as error:
-        print(f'Rava: {error}', file=sys.stderr)
+        print(f'DatabaseLaboratory: {error}', file=sys.stderr)
         sys.exit(1)

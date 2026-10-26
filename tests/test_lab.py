@@ -12,7 +12,7 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 import generate
-import rava
+import dblab
 
 
 class DatasetTests(unittest.TestCase):
@@ -65,22 +65,22 @@ class ToolTests(unittest.TestCase):
     def test_local_refuses_overwrite(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / 'sample.sqlite'
-            rava.local_database('sqlite', path)
+            dblab.local_database('sqlite', path)
             before = path.read_bytes()
             with self.assertRaises(FileExistsError):
-                rava.local_database('sqlite', path)
+                dblab.local_database('sqlite', path)
             self.assertEqual(path.read_bytes(), before)
 
     def test_reset_requires_explicit_flag(self):
-        with patch.object(sys, 'argv', ['rava.py', 'reset']), patch.object(rava, 'compose') as compose:
+        with patch.object(sys, 'argv', ['dblab.py', 'reset']), patch.object(dblab, 'compose') as compose:
             with self.assertRaises(SystemExit) as result:
-                rava.main()
+                dblab.main()
             self.assertEqual(result.exception.code, 2)
             compose.assert_not_called()
 
     def test_up_selects_only_requested_services(self):
-        with patch.object(sys, 'argv', ['rava.py', 'up', 'alloydb', 'spanner']), patch.object(rava, 'compose') as compose:
-            rava.main()
+        with patch.object(sys, 'argv', ['dblab.py', 'up', 'alloydb', 'spanner']), patch.object(dblab, 'compose') as compose:
+            dblab.main()
             compose.assert_called_once_with('up', '-d', '--wait', '--wait-timeout', '1200', 'alloydb', 'spanner')
 
     def test_verification_rejects_partial_or_incorrect_counts(self):
@@ -88,9 +88,9 @@ class ToolTests(unittest.TestCase):
         good = '\n'.join(f'{table}|{count}|{count}' for table, count in expected.items())
         state = json.dumps([{'Image': 'sha256:test', 'State': {'Health': {'Status': 'healthy'}}}])
         for bad in [good.replace('orders|1200|1200', 'orders|1200|1199'), good.splitlines()[0], good + '\n' + good.splitlines()[0]]:
-            with patch.object(rava, 'compose', return_value='id'), patch.object(rava, 'run', return_value=state), patch.object(rava, 'query', return_value=bad):
+            with patch.object(dblab, 'compose', return_value='id'), patch.object(dblab, 'run', return_value=state), patch.object(dblab, 'query', return_value=bad):
                 with self.assertRaises(RuntimeError):
-                    rava.verify('postgres')
+                    dblab.verify('postgres')
 
 
 class SpannerTests(unittest.TestCase):
@@ -101,7 +101,7 @@ class SpannerTests(unittest.TestCase):
         spec.loader.exec_module(cls.spanner)
 
     def test_existing_marker_prevents_reseeding(self):
-        with patch.object(self.spanner, 'exists', return_value=True), patch.object(self.spanner, 'query', return_value=[['rava-v1']]), patch.object(self.spanner, 'api') as api:
+        with patch.object(self.spanner, 'exists', return_value=True), patch.object(self.spanner, 'query', return_value=[['dblab-v1']]), patch.object(self.spanner, 'api') as api:
             self.spanner.initialize()
             api.assert_not_called()
 

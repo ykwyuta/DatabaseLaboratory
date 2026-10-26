@@ -10,7 +10,7 @@
 - [格納方式とアクセス経路](#section-2)
 - [トランザクションと整合性](#section-3)
 - [モデル設計と避けたい設計](#section-4)
-- [Ravaでの観察ポイント](#section-5)
+- [DatabaseLaboratoryでの観察ポイント](#section-5)
 - [確認用の例と検証手順](#examples)
 - [公式資料と適用範囲](#sources)
 
@@ -40,9 +40,9 @@ PostgreSQLのMVCC/分離レベルを基本に、Google拡張と実装版の違�
 
 <a id="section-5"></a>
 
-## Ravaでの観察ポイント
+## DatabaseLaboratoryでの観察ポイント
 
-Ravaは共通受注モデルを作るだけで列指向チューニングを自動適用しません。PostgreSQLと同じSELECTを実行し、実際に列指向計画が選ばれたかを別途確認します。
+DatabaseLaboratoryは共通受注モデルを作るだけで列指向チューニングを自動適用しません。PostgreSQLと同じSELECTを実行し、実際に列指向計画が選ばれたかを別途確認します。
 
 <a id="examples"></a>
 

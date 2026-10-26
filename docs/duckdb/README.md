@@ -4,12 +4,12 @@
 
 対象: インストールしたDuckDBの版 / version()で確認。確認日: 2026-10-26。
 
-Rava構成: Python追加パッケージでローカルファイル生成。サーバー/HA/標準CDCなし。
+DatabaseLaboratory構成: Python追加パッケージでローカルファイル生成。サーバー/HA/標準CDCなし。
 
 ## 起動と接続
 
 ```sh
-python tools/rava.py local duckdb --output .local/rava.duckdb
+python tools/dblab.py local duckdb --output .local/dblab.duckdb
 ```
 
 DuckDBはPythonのduckdbパッケージが必要です。ファイルを開くライブラリ/CLIの版も記録してください。
@@ -22,7 +22,7 @@ DuckDBはPythonのduckdbパッケージが必要です。ファイルを開く�
 - [1.2 格納方式とアクセス経路](01-design.md#section-2)
 - [1.3 トランザクションと整合性](01-design.md#section-3)
 - [1.4 モデル設計と避けたい設計](01-design.md#section-4)
-- [1.5 Ravaでの観察ポイント](01-design.md#section-5)
+- [1.5 DatabaseLaboratoryでの観察ポイント](01-design.md#section-5)
 - [1.6 確認用の例と検証手順](01-design.md#examples)
 - [1.7 公式資料と適用範囲](01-design.md#sources)
 

@@ -30,7 +30,7 @@ dumpは対応版クライアントと拡張の再作成可否を確認します�
 
 ## 増分・差分・時点復旧
 
-full/differential/incrementalと連続WALを設計します。PITRは保持windowとWALの欠落検知を必要とし、Ravaのvolume永続化だけでは提供しません。
+full/differential/incrementalと連続WALを設計します。PITRは保持windowとWALの欠落検知を必要とし、DatabaseLaboratoryのvolume永続化だけでは提供しません。
 
 <a id="section-4"></a>
 
@@ -49,8 +49,8 @@ full/differential/incrementalと連続WALを設計します。PITRは保持windo
 ## 確認用の例と検証手順
 
 ```sh
-docker compose exec -T alloydb pg_dump -U rava -d rava -Fc -f /tmp/rava-omni.dump
-docker compose cp alloydb:/tmp/rava-omni.dump .local/rava-omni.dump
+docker compose exec -T alloydb pg_dump -U dblab -d dblab -Fc -f /tmp/dblab-omni.dump
+docker compose cp alloydb:/tmp/dblab-omni.dump .local/dblab-omni.dump
 ```
 別Omniでpg_restoreを行い、物理backup/PITRはBarmanまたはpgBackRestの追加構成で試験します。
 

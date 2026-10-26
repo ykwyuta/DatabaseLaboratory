@@ -5,7 +5,7 @@
 - 取得日: 2026-10-26
 - 主な取得対象: `demo/yydbmanager/compose.yaml`, `docker/`, `init/`, `sql/`, `tools/generate.py`
 
-既存の5種類のDBの初期化・永続化・準備確認と受注サンプルを基に、アプリ固有の依存を除きました。接続ユーザー・DB名・データセット識別子・パスワード・ポートをRava用に変更し、SQL Serverのサーバー権限付与をmaster上で実行するよう修正しています。
+既存の5種類のDBの初期化・永続化・準備確認と受注サンプルを基に、アプリ固有の依存を除きました。接続ユーザー・DB名・データセット識別子・パスワード・ポートをDatabaseLaboratory用に変更し、SQL Serverのサーバー権限付与をmaster上で実行するよう修正しています。
 
 MariaDB・MongoDB・Redis・ClickHouse・AlloyDB Omni・Spanner Emulator、共通操作・検証ツール、オフライン検証とCIを追加しました。SQLite / DuckDBは生成SQLから各利用者の出力先に作成します。取得元アプリの実行ファイル・クレート・設定ファイルを必要としません。
 

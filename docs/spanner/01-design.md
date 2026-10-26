@@ -10,7 +10,7 @@
 - [格納方式とアクセス経路](#section-2)
 - [トランザクションと整合性](#section-3)
 - [モデル設計と避けたい設計](#section-4)
-- [Ravaでの観察ポイント](#section-5)
+- [DatabaseLaboratoryでの観察ポイント](#section-5)
 - [確認用の例と検証手順](#examples)
 - [公式資料と適用範囲](#sources)
 
@@ -40,9 +40,9 @@ PK、secondary index、interleaving、FKをアクセス経路から選びます�
 
 <a id="section-5"></a>
 
-## Ravaでの観察ポイント
+## DatabaseLaboratoryでの観察ポイント
 
-Ravaの連番PKは単純な機能fixtureで、本番分散キー設計の推奨ではありません。GoogleSQLとRESTのint64/NUMERICを文字列で送受信し、クライアント精度を確認します。
+DatabaseLaboratoryの連番PKは単純な機能fixtureで、本番分散キー設計の推奨ではありません。GoogleSQLとRESTのint64/NUMERICを文字列で送受信し、クライアント精度を確認します。
 
 <a id="examples"></a>
 

@@ -50,8 +50,8 @@ SYSCAT.TABLES/COLUMNS/INDEXES/REFERENCES、SYSCAT.TABAUTH等を収集します�
 
 ```text
 db2level
-db2 get db cfg for RAVA
-db2pd -db RAVA -applications
+db2 get db cfg for DBLAB
+db2pd -db DBLAB -applications
 ```
 container内のinstance ownerで実行します。SQL例は `sql/performance/db2.sql` を参照します。
 
@@ -59,6 +59,6 @@ container内のinstance ownerで実行します。SQL例は `sql/performance/db2
 
 ## 公式資料と適用範囲
 
-現在の検証環境: 単体インスタンスdb2inst1とRAVA DB。HADR/外部CDCは未構成。
+現在の検証環境: 単体インスタンスdb2inst1とDBLAB DB。HADR/外部CDCは未構成。
 
 [監視](https://www.ibm.com/docs/en/db2/12.1.x?topic=performance-monitoring-database)

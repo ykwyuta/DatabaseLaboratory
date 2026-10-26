@@ -4,13 +4,13 @@
 
 対象: Spanner本番設計 / Emulator 1.5.41のGoogleSQLで機能検証。確認日: 2026-10-26。
 
-Rava構成: インメモリエミュレーターとREST初期化。IAM/本番性能/本番HAは検証不可。
+DatabaseLaboratory構成: インメモリエミュレーターとREST初期化。IAM/本番性能/本番HAは検証不可。
 
 ## 起動と接続
 
 ```sh
-python tools/rava.py up spanner
-python tools/rava.py verify spanner
+python tools/dblab.py up spanner
+python tools/dblab.py verify spanner
 ```
 
 接続先・ポート・公開された検証用資格情報は[ルートREADME](../../README.md#接続先)を参照してください。
@@ -23,7 +23,7 @@ python tools/rava.py verify spanner
 - [1.2 格納方式とアクセス経路](01-design.md#section-2)
 - [1.3 トランザクションと整合性](01-design.md#section-3)
 - [1.4 モデル設計と避けたい設計](01-design.md#section-4)
-- [1.5 Ravaでの観察ポイント](01-design.md#section-5)
+- [1.5 DatabaseLaboratoryでの観察ポイント](01-design.md#section-5)
 - [1.6 確認用の例と検証手順](01-design.md#examples)
 - [1.7 公式資料と適用範囲](01-design.md#sources)
 

@@ -51,7 +51,7 @@ INSERT/UPDATE/DELETEの競合解決、PK変更、schema変更の先行適用を�
 ```sql
 PRAGMA compile_options;
 ```
-ENABLE_SESSION等を確認し、対応APIを持つ追加環境でchangesetを取得/適用します。Ravaはsession extensionや配信consumerを自動導入しません。
+ENABLE_SESSION等を確認し、対応APIを持つ追加環境でchangesetを取得/適用します。DatabaseLaboratoryはsession extensionや配信consumerを自動導入しません。
 
 <a id="sources"></a>
 

@@ -10,7 +10,7 @@
 - [格納方式とアクセス経路](#section-2)
 - [トランザクションと整合性](#section-3)
 - [モデル設計と避けたい設計](#section-4)
-- [Ravaでの観察ポイント](#section-5)
+- [DatabaseLaboratoryでの観察ポイント](#section-5)
 - [確認用の例と検証手順](#examples)
 - [公式資料と適用範囲](#sources)
 
@@ -24,7 +24,7 @@ LUW版の業務RDBMSとして、行指向、buffer pool、tablespace、静的/�
 
 ## 格納方式とアクセス経路
 
-instanceとdatabase、schema、tablespace、containerを分けます。RavaはBLUを有効化せず行指向で、Db2の列指向分析機能を評価した結果ではありません。
+instanceとdatabase、schema、tablespace、containerを分けます。DatabaseLaboratoryはBLUを有効化せず行指向で、Db2の列指向分析機能を評価した結果ではありません。
 
 <a id="section-3"></a>
 
@@ -40,9 +40,9 @@ DECIMAL(31,8)など桁数、文字コード、NULL、IDENTITY/SEQUENCEを明示�
 
 <a id="section-5"></a>
 
-## Ravaでの観察ポイント
+## DatabaseLaboratoryでの観察ポイント
 
-RAVA DBのDB2INST1 schemaを使います。複合PK、自己参照FK、偏り、RUNSTATS後の計画を比較し、アプリの接続schemaの解決も確認します。
+DBLAB DBのDB2INST1 schemaを使います。複合PK、自己参照FK、偏り、RUNSTATS後の計画を比較し、アプリの接続schemaの解決も確認します。
 
 <a id="examples"></a>
 
@@ -58,6 +58,6 @@ SELECT TABNAME,TBSPACE FROM SYSCAT.TABLES WHERE TABSCHEMA=CURRENT SCHEMA;
 
 ## 公式資料と適用範囲
 
-現在の検証環境: 単体インスタンスdb2inst1とRAVA DB。HADR/外部CDCは未構成。
+現在の検証環境: 単体インスタンスdb2inst1とDBLAB DB。HADR/外部CDCは未構成。
 
 [Db2 12.1ドキュメント](https://www.ibm.com/docs/en/db2/12.1.x)

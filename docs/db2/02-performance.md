@@ -52,12 +52,12 @@ MON_GET_BUFFERPOOL、MON_GET_TABLESPACE、MON_GET_TRANSACTION_LOGとOS IOを合�
 EXPLAIN PLAN FOR SELECT * FROM orders WHERE customer_id=24;
 SELECT NUM_EXECUTIONS,TOTAL_ACT_TIME,ROWS_READ FROM TABLE(MON_GET_PKG_CACHE_STMT(NULL,NULL,NULL,-2)) AS S;
 ```
-instance ownerのshellで `db2exfmt -d RAVA -1 -o /tmp/rava-plan.txt` を使います。
+instance ownerのshellで `db2exfmt -d DBLAB -1 -o /tmp/dblab-plan.txt` を使います。
 
 <a id="sources"></a>
 
 ## 公式資料と適用範囲
 
-現在の検証環境: 単体インスタンスdb2inst1とRAVA DB。HADR/外部CDCは未構成。
+現在の検証環境: 単体インスタンスdb2inst1とDBLAB DB。HADR/外部CDCは未構成。
 
 [パッケージキャッシュ統計](https://www.ibm.com/docs/en/db2/12.1.x?topic=mmr-mon-get-pkg-cache-stmt-table-function-get-package-cache-statement-metrics)

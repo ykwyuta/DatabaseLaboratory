@@ -1,8 +1,10 @@
-# Rava
+# DatabaseLaboratory
 
 汎用的なデータベース検証環境。アプリケーションや特定のドライバーに依存せず、接続、SQLの互換性、型・精度、制約、実行計画、インポート・エクスポートを試すためのプロジェクトです。
 
 DBごとの設計思想・性能分析・SQL差異・運用・バックアップ・冗長化・差分配信は、[ドキュメント総合目次](docs/README.md)から参照できます。13種類それぞれに7章と詳細目次を用意しています。
+
+Composeプロジェクト名は `databaselaboratory`、DB名・ユーザー名などの共通識別子は `dblab`（大文字表記は `DBLAB`）です。Db2のDB名の長さ制限にも対応する短縮名を使用します。
 
 Docker Composeで必要なDBだけを起動し、初期データ投入とヘルスチェックまで自動で行います。Windows / Linux / macOSで同じComposeを使えます。Docker DesktopではLinuxコンテナーを使用してください。SQL Server・Db2・AlloyDB Omniなどはamd64環境を推奨し、各イメージの対応CPUと利用条件に従います。
 
@@ -27,39 +29,41 @@ docker compose --profile "*" up -d --wait --wait-timeout 1200
 Python 3.10以降があれば、標準ライブラリだけの共通ツールも使えます。実行ディレクトリに依存せず、選択したDBだけを起動します。
 
 ```sh
-python tools/rava.py up                      # PostgreSQL
-python tools/rava.py up mysql mariadb        # 選択起動
-python tools/rava.py up alloydb spanner
-python tools/rava.py up all                  # 全DB
-python tools/rava.py status
-python tools/rava.py verify                  # 起動中のDBを検証
-python tools/rava.py verify postgres mysql   # 指定DBを検証
-python tools/rava.py logs spanner
-python tools/rava.py stop                    # データを残して全DB停止
-python tools/rava.py down                    # コンテナー削除、ボリューム保持
+python tools/dblab.py up                      # PostgreSQL
+python tools/dblab.py up mysql mariadb        # 選択起動
+python tools/dblab.py up alloydb spanner
+python tools/dblab.py up all                  # 全DB
+python tools/dblab.py status
+python tools/dblab.py verify                  # 起動中のDBを検証
+python tools/dblab.py verify postgres mysql   # 指定DBを検証
+python tools/dblab.py logs spanner
+python tools/dblab.py stop                    # データを残して全DB停止
+python tools/dblab.py down                    # コンテナー削除、ボリューム保持
 ```
 
 ## 接続先
 
-すべてホスト `127.0.0.1`、パスワード `Rava_Test_2026!`。ローカル検証専用の公開された固定資格情報です。TLSや本番向けの権限分離は設定していません。既存のyyeditorデモとはポート・Composeプロジェクト・ボリュームを分けています。
+すべてホスト `127.0.0.1`、パスワード `DatabaseLaboratory_Test_2026!`。ローカル検証専用の公開された固定資格情報です。TLSや本番向けの権限分離は設定していません。既存のyyeditorデモとはポート・Composeプロジェクト・ボリュームを分けています。
 
 | DB / サービス・プロファイル | イメージ | ポート | DB / サービス | ユーザー |
 | --- | --- | ---: | --- | --- |
-| PostgreSQL / `postgres`（既定） | `postgres:17-alpine` | 35432 | rava | rava |
-| MySQL / `mysql` | `mysql:8.4` | 33306 | rava | rava |
-| MariaDB / `mariadb` | `mariadb:11.4` | 33307 | rava | rava |
-| SQL Server / `sqlserver` | `mcr.microsoft.com/mssql/server:2022-latest` | 31433 | rava | rava（管理者 sa） |
-| Oracle Free / `oracle` | `container-registry.oracle.com/database/free:latest-lite` | 31521 | FREEPDB1 | rava |
-| Db2 Community / `db2` | `icr.io/db2_community/db2:12.1.5.0` | 35000 | RAVA | db2inst1 |
-| MongoDB / `mongo` | `mongo:8.0` | 37017 | rava（authSource=admin） | rava |
+| PostgreSQL / `postgres`（既定） | `postgres:17-alpine` | 35432 | dblab | dblab |
+| MySQL / `mysql` | `mysql:8.4` | 33306 | dblab | dblab |
+| MariaDB / `mariadb` | `mariadb:11.4` | 33307 | dblab | dblab |
+| SQL Server / `sqlserver` | `mcr.microsoft.com/mssql/server:2022-latest` | 31433 | dblab | dblab（管理者 sa） |
+| Oracle Free / `oracle` | `container-registry.oracle.com/database/free:latest-lite` | 31521 | FREEPDB1 | dblab |
+| Db2 Community / `db2` | `icr.io/db2_community/db2:12.1.5.0` | 35000 | DBLAB | db2inst1 |
+| MongoDB / `mongo` | `mongo:8.0` | 37017 | dblab（authSource=admin） | dblab |
 | Redis / `redis` | `redis:7.4-alpine` | 36379 | DB 0 | default |
-| ClickHouse / `clickhouse` | `clickhouse/clickhouse-server:25.8` | 38123 HTTP / 39000 Native | rava | rava |
-| AlloyDB Omni / `alloydb` | `google/alloydbomni:17.9.0` | 35433 | rava | rava（管理者 postgres） |
+| ClickHouse / `clickhouse` | `clickhouse/clickhouse-server:25.8` | 38123 HTTP / 39000 Native | dblab | dblab |
+| AlloyDB Omni / `alloydb` | `google/alloydbomni:17.9.0` | 35433 | dblab | dblab（管理者 postgres） |
 | Spanner Emulator / `spanner` | `gcr.io/cloud-spanner-emulator/emulator:1.5.41` | 39010 gRPC / 39020 REST | 下記 | 認証なし |
 
-例：PostgreSQLは `postgresql://rava:Rava_Test_2026!@127.0.0.1:35432/rava`、AlloyDB Omniは同じ形式でポート35433。MongoDBは `mongodb://rava:Rava_Test_2026!@127.0.0.1:37017/rava?authSource=admin`。
+例：PostgreSQLは `postgresql://dblab:DatabaseLaboratory_Test_2026!@127.0.0.1:35432/dblab`、AlloyDB Omniは同じ形式でポート35433。MongoDBは `mongodb://dblab:DatabaseLaboratory_Test_2026!@127.0.0.1:37017/dblab?authSource=admin`。
 
-ポートが競合したら `.env.example` を `.env` にコピーし、`RAVA_*_PORT` を変更してください。Composeの再実行で反映します。資格情報は初期化SQLと合わせて固定しているため、`.env` でのパスワード変更には対応しません。並行した別環境は `docker compose -p rava-other ...` または `.env` の `COMPOSE_PROJECT_NAME` と別ポートを使います。
+ポートが競合したら `.env.example` を `.env` にコピーし、`DATABASELABORATORY_*_PORT` を変更してください。Composeの再実行で反映します。資格情報は初期化SQLと合わせて固定しているため、`.env` でのパスワード変更には対応しません。並行した別環境は `docker compose -p dblab-other ...` または `.env` の `COMPOSE_PROJECT_NAME` と別ポートを使います。
+
+改名前の環境を使っている場合は、旧Compose設定でコンテナーを停止してから新構成を起動してください。同じ既定ポートを使用します。新しいプロジェクト名では新規ボリュームを作成し、既存データ・資格情報の自動移行は行いません。`.env` のポート変数も新しい名前へ更新してください。
 
 SQL ServerはDeveloper版、OracleはFree、Db2はCommunity版です。Db2の公式イメージには `privileged: true` が必要で、初期化フックを追加してビルドします。Oracleの `latest-lite` など一部タグの内容は更新されるため、検証ツールは使用したイメージIDをレポートに記録します。
 
@@ -71,10 +75,10 @@ Spannerは公式エミュレーターを使用します。Cloudアカウント�
 
 | 項目 | 値 |
 | --- | --- |
-| Project | `rava-local` |
-| Instance | `rava` |
-| Database / SQL方言 | `rava` / GoogleSQL |
-| リソース名 | `projects/rava-local/instances/rava/databases/rava` |
+| Project | `dblab-local` |
+| Instance | `dblab` |
+| Database / SQL方言 | `dblab` / GoogleSQL |
+| リソース名 | `projects/dblab-local/instances/dblab/databases/dblab` |
 | SDK設定（PowerShell） | `$env:SPANNER_EMULATOR_HOST = '127.0.0.1:39010'` |
 | SDK設定（sh） | `export SPANNER_EMULATOR_HOST=127.0.0.1:39010` |
 | Compose内の接続先 | `spanner-emulator:9010` |
@@ -95,7 +99,7 @@ PostgreSQL / MySQL / MariaDB / SQL Server / Oracle / Db2 / AlloyDB Omni、およ
 | order_items | 3600 | 複合主キー、FK |
 | support_tickets | 6 | 物理FKのない顧客コードの関係 |
 | exact_values | 3 | BIGINT境界、2^53超の整数、DECIMAL(31,8)、空文字・NULL |
-| demo_ready | 1 | 初期データのバージョン `rava-v1` |
+| demo_ready | 1 | 初期データのバージョン `dblab-v1` |
 
 `customer_sales` ビューも作成します。SQLiteの大きな小数は精度保持のためTEXT、Oracleの空文字はNULLになります。
 
@@ -106,7 +110,7 @@ MongoDBは顧客3件・受注1200件・ネスト・配列・索引・Int64・Dec
 Redisは空のDBから始めます。検証ではランダムな専用キーで文字列・Hash・List・Set・Sorted Set・TTLを確認し、キーを削除します。他のDBの検証は読み取り専用です。
 
 ```sh
-python tools/rava.py verify
+python tools/dblab.py verify
 ```
 
 全RDBMSの件数・日本語・整数/小数精度・偏り・ビューと共通サンプル実行、MongoDB / ClickHouse / Spannerの件数・数値精度を検証します。`reports/verification.json` に時刻・イメージID・成功/失敗を保存し、失敗時は非ゼロで終了します。DB固有の性能分析SQLは自動検証に含めません。サーバーの `healthy` は投入完了を表し、より詳しい確認には `verify` を実行します。RedisのhealthyはPING成功を表します。
@@ -116,9 +120,9 @@ python tools/rava.py verify
 ## Docker不要のSQLite / DuckDB
 
 ```sh
-python tools/rava.py local sqlite --output .local/rava.sqlite
+python tools/dblab.py local sqlite --output .local/dblab.sqlite
 # DuckDBのみ、任意のPython環境へ pip install duckdb を先に実行
-python tools/rava.py local duckdb --output .local/rava.duckdb
+python tools/dblab.py local duckdb --output .local/dblab.duckdb
 ```
 
 既存ファイルは上書きしません。SQLiteはPython標準ライブラリで作れます。DuckDBの追加パッケージはこの機能だけで使用します。
@@ -133,10 +137,10 @@ docker compose logs --tail 100 postgres
 docker compose --profile "*" down             # ボリューム保持
 ```
 
-Spanner以外は専用の名前付きボリュームに永続化し、初期投入は一度だけ行います。データを消して最初から検証する場合に限り、次を実行します。**Ravaの全DB・全ボリュームを削除します。**
+Spanner以外は専用の名前付きボリュームに永続化し、初期投入は一度だけ行います。データを消して最初から検証する場合に限り、次を実行します。**DatabaseLaboratoryの全DB・全ボリュームを削除します。**
 
 ```sh
-python tools/rava.py reset --yes
+python tools/dblab.py reset --yes
 # または docker compose --profile "*" down -v
 ```
 
@@ -150,7 +154,7 @@ python -m unittest discover -s tests -v       # Docker不要の検証
 docker compose --profile "*" config --quiet  # 全プロファイルの構文確認
 ```
 
-`init/` が投入SQL、`docker/` が起動・準備確認、`sql/` が利用者向けクエリー、`tools/rava.py` が操作と検証です。新しいDBはプロファイル・localhostの専用ポート・永続化・投入完了のヘルスチェックを追加し、検証ツールと接続表を更新してください。
+`init/` が投入SQL、`docker/` が起動・準備確認、`sql/` が利用者向けクエリー、`tools/dblab.py` が操作と検証です。新しいDBはプロファイル・localhostの専用ポート・永続化・投入完了のヘルスチェックを追加し、検証ツールと接続表を更新してください。
 
 GitHub Actionsはオフライン検証と主要8種類のDBの起動・検証を行います。Oracle / Db2 / AlloyDB Omniはリソース消費が大きいため手動実行で選べます。
 

@@ -10,7 +10,7 @@
 - [格納方式とアクセス経路](#section-2)
 - [トランザクションと整合性](#section-3)
 - [モデル設計と避けたい設計](#section-4)
-- [Ravaでの観察ポイント](#section-5)
+- [DatabaseLaboratoryでの観察ポイント](#section-5)
 - [確認用の例と検証手順](#examples)
 - [公式資料と適用範囲](#sources)
 
@@ -40,9 +40,9 @@ String/Hash/List/Set/Sorted Set/Stream等を用途に応じ選びます。巨大
 
 <a id="section-5"></a>
 
-## Ravaでの観察ポイント
+## DatabaseLaboratoryでの観察ポイント
 
-Ravaは空DBで起動します。verifyは専用ランダムキーで各構造とTTLを試して消すため、実データがない状態を初期化失敗とはみなしません。
+DatabaseLaboratoryは空DBで起動します。verifyは専用ランダムキーで各構造とTTLを試して消すため、実データがない状態を初期化失敗とはみなしません。
 
 <a id="examples"></a>
 

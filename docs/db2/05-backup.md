@@ -24,7 +24,7 @@ BACKUP DATABASEで物理バックアップ、db2lookとEXPORT等で論理定義/
 
 ## 取得時の整合性と前提条件
 
-オンラインbackupにはログアーカイブ等の前提を確認します。Ravaの既定DBをオンライン/PITR可能と仮定せず、GET DB CFGでLOGARCHMETH1/2やpending状態を調べます。
+オンラインbackupにはログアーカイブ等の前提を確認します。DatabaseLaboratoryの既定DBをオンライン/PITR可能と仮定せず、GET DB CFGでLOGARCHMETH1/2やpending状態を調べます。
 
 <a id="section-3"></a>
 
@@ -49,15 +49,15 @@ backup imageの検査と実復元、表件数・制約・package/統計・権限
 ## 確認用の例と検証手順
 
 ```text
-db2 get db cfg for RAVA
-db2 list history backup all for RAVA
+db2 get db cfg for DBLAB
+db2 list history backup all for DBLAB
 ```
-方式例: `BACKUP DATABASE RAVA ONLINE TO <backup_dir> INCLUDE LOGS`。ログアーカイブ等の前提を満たす追加環境で使用し、別DBへRESTORE/ROLLFORWARDを試験します。
+方式例: `BACKUP DATABASE DBLAB ONLINE TO <backup_dir> INCLUDE LOGS`。ログアーカイブ等の前提を満たす追加環境で使用し、別DBへRESTORE/ROLLFORWARDを試験します。
 
 <a id="sources"></a>
 
 ## 公式資料と適用範囲
 
-現在の検証環境: 単体インスタンスdb2inst1とRAVA DB。HADR/外部CDCは未構成。
+現在の検証環境: 単体インスタンスdb2inst1とDBLAB DB。HADR/外部CDCは未構成。
 
 [回復とHAガイド](https://public.dhe.ibm.com/ps/products/db2/info/vr121/pdf/en_US/db2_data_recov_ha_121.pdf)

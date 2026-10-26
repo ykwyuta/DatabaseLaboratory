@@ -58,6 +58,6 @@ SELECT big_integer,amount FROM exact_values ORDER BY value_id;
 
 ## 公式資料と適用範囲
 
-現在の検証環境: 単体インスタンスdb2inst1とRAVA DB。HADR/外部CDCは未構成。
+現在の検証環境: 単体インスタンスdb2inst1とDBLAB DB。HADR/外部CDCは未構成。
 
 [SQL](https://www.ibm.com/docs/en/db2/12.1.x?topic=reference-sql)

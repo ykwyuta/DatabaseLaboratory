@@ -24,7 +24,7 @@ WALをlogical decodingで行変更に変換し、publication/subscriptionまた�
 
 ## 初期ロードと増分の境界
 
-初期スナップショットとslotの開始LSNを整合させ、その間の変更を失わないようにします。wal_level=logical、slot数、sender数、権限、接続許可が必要で、Ravaの既定設定では有効化していません。
+初期スナップショットとslotの開始LSNを整合させ、その間の変更を失わないようにします。wal_level=logical、slot数、sender数、権限、接続許可が必要で、DatabaseLaboratoryの既定設定では有効化していません。
 
 <a id="section-3"></a>
 
@@ -53,7 +53,7 @@ SHOW wal_level;
 SELECT slot_name,slot_type,active,restart_lsn,confirmed_flush_lsn
 FROM pg_replication_slots;
 ```
-追加環境で `CREATE PUBLICATION rava_pub FOR TABLE orders;` を作成し、スナップショット後のINSERT/UPDATE/DELETEと再開を確認します。slotはWALを保持するため終了後の管理対象にします。
+追加環境で `CREATE PUBLICATION dblab_pub FOR TABLE orders;` を作成し、スナップショット後のINSERT/UPDATE/DELETEと再開を確認します。slotはWALを保持するため終了後の管理対象にします。
 
 <a id="sources"></a>
 

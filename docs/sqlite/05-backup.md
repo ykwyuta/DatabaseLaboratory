@@ -52,8 +52,8 @@ Python標準APIの例です。出力先は新しいパスを用意し、既存�
 
 ```python
 import sqlite3
-source = sqlite3.connect('file:.local/rava.sqlite?mode=ro', uri=True)
-target = sqlite3.connect('.local/rava-copy.sqlite')
+source = sqlite3.connect('file:.local/dblab.sqlite?mode=ro', uri=True)
+target = sqlite3.connect('.local/dblab-copy.sqlite')
 try:
     source.backup(target)
 finally:

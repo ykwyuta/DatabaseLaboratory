@@ -1,19 +1,19 @@
-name: rava
+name: databaselaboratory
 services:
   postgres:
     image: postgres:17-alpine
     command: ["postgres", "-c", "shared_preload_libraries=pg_stat_statements"]
     environment:
-      POSTGRES_USER: rava
-      POSTGRES_PASSWORD: Rava_Test_2026!
-      POSTGRES_DB: rava
-    ports: ["127.0.0.1:${RAVA_POSTGRES_PORT:-35432}:5432"]
+      POSTGRES_USER: dblab
+      POSTGRES_PASSWORD: DatabaseLaboratory_Test_2026!
+      POSTGRES_DB: dblab
+    ports: ["127.0.0.1:${DATABASELABORATORY_POSTGRES_PORT:-35432}:5432"]
     volumes:
       - ./sql:/demo/sql:ro
       - postgres_data:/var/lib/postgresql/data
       - ./init/postgres.sql:/docker-entrypoint-initdb.d/10-demo.sql:ro
     healthcheck:
-      test: ["CMD-SHELL", "PGPASSWORD=$$POSTGRES_PASSWORD psql -h 127.0.0.1 -U rava -d rava -Atc 'SELECT dataset_version FROM demo_ready WHERE id=1' | grep -qx rava-v1"]
+      test: ["CMD-SHELL", "PGPASSWORD=$$POSTGRES_PASSWORD psql -h 127.0.0.1 -U dblab -d dblab -Atc 'SELECT dataset_version FROM demo_ready WHERE id=1' | grep -qx dblab-v1"]
       interval: 3s
       timeout: 5s
       retries: 40
@@ -22,18 +22,18 @@ services:
     profiles: [mysql]
     image: mysql:8.4
     environment:
-      MYSQL_ROOT_PASSWORD: Rava_Test_2026!
-      MYSQL_USER: rava
-      MYSQL_PASSWORD: Rava_Test_2026!
-      MYSQL_DATABASE: rava
+      MYSQL_ROOT_PASSWORD: DatabaseLaboratory_Test_2026!
+      MYSQL_USER: dblab
+      MYSQL_PASSWORD: DatabaseLaboratory_Test_2026!
+      MYSQL_DATABASE: dblab
     command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_0900_ai_ci"]
-    ports: ["127.0.0.1:${RAVA_MYSQL_PORT:-33306}:3306"]
+    ports: ["127.0.0.1:${DATABASELABORATORY_MYSQL_PORT:-33306}:3306"]
     volumes:
       - ./sql:/demo/sql:ro
       - mysql_data:/var/lib/mysql
       - ./init/mysql.sql:/docker-entrypoint-initdb.d/10-demo.sql:ro
     healthcheck:
-      test: ["CMD-SHELL", "MYSQL_PWD=$$MYSQL_PASSWORD mysql -h 127.0.0.1 -u rava -D rava -Nse 'SELECT dataset_version FROM demo_ready WHERE id=1' | grep -qx rava-v1"]
+      test: ["CMD-SHELL", "MYSQL_PWD=$$MYSQL_PASSWORD mysql -h 127.0.0.1 -u dblab -D dblab -Nse 'SELECT dataset_version FROM demo_ready WHERE id=1' | grep -qx dblab-v1"]
       interval: 3s
       timeout: 5s
       retries: 60
@@ -44,17 +44,17 @@ services:
     environment:
       ACCEPT_EULA: "Y"
       MSSQL_PID: Developer
-      MSSQL_SA_PASSWORD: Rava_Test_2026!
-      SQLCMDPASSWORD: Rava_Test_2026!
+      MSSQL_SA_PASSWORD: DatabaseLaboratory_Test_2026!
+      SQLCMDPASSWORD: DatabaseLaboratory_Test_2026!
     entrypoint: ["/bin/bash", "/demo/sqlserver-start.sh"]
-    ports: ["127.0.0.1:${RAVA_SQLSERVER_PORT:-31433}:1433"]
+    ports: ["127.0.0.1:${DATABASELABORATORY_SQLSERVER_PORT:-31433}:1433"]
     volumes:
       - ./sql:/demo/sql:ro
       - sqlserver_data:/var/opt/mssql
       - ./docker/sqlserver-start.sh:/demo/sqlserver-start.sh:ro
       - ./init/sqlserver.sql:/demo/init.sql:ro
     healthcheck:
-      test: ["CMD-SHELL", "test -f /var/opt/mssql/rava-ready && /opt/mssql-tools18/bin/sqlcmd -S 127.0.0.1 -U sa -C -b -d rava -Q 'SELECT dataset_version FROM demo_ready WHERE id=1' -h -1 | grep -q rava-v1"]
+      test: ["CMD-SHELL", "test -f /var/opt/mssql/dblab-ready && /opt/mssql-tools18/bin/sqlcmd -S 127.0.0.1 -U sa -C -b -d dblab -Q 'SELECT dataset_version FROM demo_ready WHERE id=1' -h -1 | grep -q dblab-v1"]
       interval: 3s
       timeout: 5s
       retries: 80
@@ -63,11 +63,11 @@ services:
     profiles: [oracle]
     image: container-registry.oracle.com/database/free:latest-lite
     environment:
-      ORACLE_PWD: Rava_Test_2026!
+      ORACLE_PWD: DatabaseLaboratory_Test_2026!
       ORACLE_CHARACTERSET: AL32UTF8
       NLS_LANG: .AL32UTF8
     shm_size: 1gb
-    ports: ["127.0.0.1:${RAVA_ORACLE_PORT:-31521}:1521"]
+    ports: ["127.0.0.1:${DATABASELABORATORY_ORACLE_PORT:-31521}:1521"]
     volumes:
       - ./sql:/demo/sql:ro
       - oracle_data:/opt/oracle/oradata
@@ -75,7 +75,7 @@ services:
       - ./docker/oracle-startup.sh:/opt/oracle/scripts/startup/10-demo.sh:ro
       - ./docker/oracle-health.sql:/demo/health.sql:ro
     healthcheck:
-      test: ["CMD-SHELL", "sqlplus -L -s 'rava/\"Rava_Test_2026!\"@//127.0.0.1:1521/FREEPDB1' @/demo/health.sql | grep -q rava-v1"]
+      test: ["CMD-SHELL", "sqlplus -L -s 'dblab/\"DatabaseLaboratory_Test_2026!\"@//127.0.0.1:1521/FREEPDB1' @/demo/health.sql | grep -q dblab-v1"]
       interval: 10s
       timeout: 10s
       retries: 90
@@ -89,13 +89,13 @@ services:
     environment:
       LICENSE: accept
       DB2INSTANCE: db2inst1
-      DB2INST1_PASSWORD: Rava_Test_2026!
-      DBNAME: RAVA
+      DB2INST1_PASSWORD: DatabaseLaboratory_Test_2026!
+      DBNAME: DBLAB
       BLU: "false"
       ENABLE_ORACLE_COMPATIBILITY: "false"
       TO_CREATE_SAMPLEDB: "false"
       PERSISTENT_HOME: "true"
-    ports: ["127.0.0.1:${RAVA_DB2_PORT:-35000}:50000"]
+    ports: ["127.0.0.1:${DATABASELABORATORY_DB2_PORT:-35000}:50000"]
     volumes:
       - db2_data:/database
       - ./sql:/demo/sql:ro
@@ -109,18 +109,18 @@ services:
     profiles: [mariadb]
     image: mariadb:11.4
     environment:
-      MARIADB_ROOT_PASSWORD: Rava_Test_2026!
-      MARIADB_DATABASE: rava
-      MARIADB_USER: rava
-      MARIADB_PASSWORD: Rava_Test_2026!
+      MARIADB_ROOT_PASSWORD: DatabaseLaboratory_Test_2026!
+      MARIADB_DATABASE: dblab
+      MARIADB_USER: dblab
+      MARIADB_PASSWORD: DatabaseLaboratory_Test_2026!
     command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
-    ports: ["127.0.0.1:${RAVA_MARIADB_PORT:-33307}:3306"]
+    ports: ["127.0.0.1:${DATABASELABORATORY_MARIADB_PORT:-33307}:3306"]
     volumes:
       - mariadb_data:/var/lib/mysql
       - ./init/mariadb.sql:/docker-entrypoint-initdb.d/10-demo.sql:ro
       - ./sql:/demo/sql:ro
     healthcheck:
-      test: ["CMD-SHELL", "MYSQL_PWD=$$MARIADB_PASSWORD mariadb -h 127.0.0.1 -u rava -D rava -Nse 'SELECT dataset_version FROM demo_ready WHERE id=1' | grep -qx rava-v1"]
+      test: ["CMD-SHELL", "MYSQL_PWD=$$MARIADB_PASSWORD mariadb -h 127.0.0.1 -u dblab -D dblab -Nse 'SELECT dataset_version FROM demo_ready WHERE id=1' | grep -qx dblab-v1"]
       interval: 5s
       timeout: 5s
       retries: 60
@@ -129,17 +129,17 @@ services:
     profiles: [mongo]
     image: mongo:8.0
     environment:
-      MONGO_INITDB_ROOT_USERNAME: rava
-      MONGO_INITDB_ROOT_PASSWORD: Rava_Test_2026!
-      MONGO_INITDB_DATABASE: rava
-    ports: ["127.0.0.1:${RAVA_MONGO_PORT:-37017}:27017"]
+      MONGO_INITDB_ROOT_USERNAME: dblab
+      MONGO_INITDB_ROOT_PASSWORD: DatabaseLaboratory_Test_2026!
+      MONGO_INITDB_DATABASE: dblab
+    ports: ["127.0.0.1:${DATABASELABORATORY_MONGO_PORT:-37017}:27017"]
     volumes:
       - mongo_data:/data/db
       - mongo_config:/data/configdb
       - ./init/mongo.js:/docker-entrypoint-initdb.d/10-demo.js:ro
       - ./docker/mongo-verify.js:/demo/verify.js:ro
     healthcheck:
-      test: ["CMD", "mongosh", "--quiet", "--host", "127.0.0.1", "-u", "rava", "-p", "Rava_Test_2026!", "--authenticationDatabase", "admin", "rava", "/demo/verify.js"]
+      test: ["CMD", "mongosh", "--quiet", "--host", "127.0.0.1", "-u", "dblab", "-p", "DatabaseLaboratory_Test_2026!", "--authenticationDatabase", "admin", "dblab", "/demo/verify.js"]
       interval: 5s
       timeout: 10s
       retries: 60
@@ -148,9 +148,9 @@ services:
     profiles: [redis]
     image: redis:7.4-alpine
     environment:
-      REDISCLI_AUTH: Rava_Test_2026!
-    command: ["redis-server", "--appendonly", "yes", "--requirepass", "Rava_Test_2026!"]
-    ports: ["127.0.0.1:${RAVA_REDIS_PORT:-36379}:6379"]
+      REDISCLI_AUTH: DatabaseLaboratory_Test_2026!
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "DatabaseLaboratory_Test_2026!"]
+    ports: ["127.0.0.1:${DATABASELABORATORY_REDIS_PORT:-36379}:6379"]
     volumes:
       - redis_data:/data
     healthcheck:
@@ -162,19 +162,19 @@ services:
     profiles: [clickhouse]
     image: clickhouse/clickhouse-server:25.8
     environment:
-      CLICKHOUSE_DB: rava
-      CLICKHOUSE_USER: rava
-      CLICKHOUSE_PASSWORD: Rava_Test_2026!
+      CLICKHOUSE_DB: dblab
+      CLICKHOUSE_USER: dblab
+      CLICKHOUSE_PASSWORD: DatabaseLaboratory_Test_2026!
       CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: "1"
     ports:
-      - "127.0.0.1:${RAVA_CLICKHOUSE_HTTP_PORT:-38123}:8123"
-      - "127.0.0.1:${RAVA_CLICKHOUSE_NATIVE_PORT:-39000}:9000"
+      - "127.0.0.1:${DATABASELABORATORY_CLICKHOUSE_HTTP_PORT:-38123}:8123"
+      - "127.0.0.1:${DATABASELABORATORY_CLICKHOUSE_NATIVE_PORT:-39000}:9000"
     volumes:
       - clickhouse_data:/var/lib/clickhouse
       - ./init/clickhouse.sql:/docker-entrypoint-initdb.d/10-demo.sql:ro
       - ./sql/clickhouse-verify.sql:/demo/verify.sql:ro
     healthcheck:
-      test: ["CMD-SHELL", "clickhouse-client --user rava --password \"$$CLICKHOUSE_PASSWORD\" --database rava --query \"SELECT dataset_version FROM demo_ready WHERE id=1\" | grep -qx rava-v1"]
+      test: ["CMD-SHELL", "clickhouse-client --user dblab --password \"$$CLICKHOUSE_PASSWORD\" --database dblab --query \"SELECT dataset_version FROM demo_ready WHERE id=1\" | grep -qx dblab-v1"]
       interval: 5s
       timeout: 10s
       retries: 60
@@ -183,9 +183,9 @@ services:
     profiles: [alloydb]
     image: google/alloydbomni:17.9.0
     environment:
-      POSTGRES_PASSWORD: Rava_Test_2026!
+      POSTGRES_PASSWORD: DatabaseLaboratory_Test_2026!
     shm_size: 1gb
-    ports: ["127.0.0.1:${RAVA_ALLOYDB_PORT:-35433}:5432"]
+    ports: ["127.0.0.1:${DATABASELABORATORY_ALLOYDB_PORT:-35433}:5432"]
     volumes:
       - alloydb_data:/var/lib/postgresql/data
     healthcheck:
@@ -202,16 +202,16 @@ services:
         condition: service_healthy
     environment:
       PGHOST: alloydb-server
-      PGUSER: rava
-      PGPASSWORD: Rava_Test_2026!
-      PGDATABASE: rava
+      PGUSER: dblab
+      PGPASSWORD: DatabaseLaboratory_Test_2026!
+      PGDATABASE: dblab
     entrypoint: ["/bin/sh", "/demo/alloydb-init.sh"]
     volumes:
       - ./docker/alloydb-init.sh:/demo/alloydb-init.sh:ro
       - ./init/alloydb.sql:/demo/init.sql:ro
       - ./sql:/demo/sql:ro
     healthcheck:
-      test: ["CMD-SHELL", "psql -Atc 'SELECT dataset_version FROM demo_ready WHERE id=1' | grep -qx rava-v1"]
+      test: ["CMD-SHELL", "psql -Atc 'SELECT dataset_version FROM demo_ready WHERE id=1' | grep -qx dblab-v1"]
       interval: 5s
       timeout: 10s
       retries: 90
@@ -220,8 +220,8 @@ services:
     profiles: [spanner]
     image: gcr.io/cloud-spanner-emulator/emulator:1.5.41
     ports:
-      - "127.0.0.1:${RAVA_SPANNER_GRPC_PORT:-39010}:9010"
-      - "127.0.0.1:${RAVA_SPANNER_REST_PORT:-39020}:9020"
+      - "127.0.0.1:${DATABASELABORATORY_SPANNER_GRPC_PORT:-39010}:9010"
+      - "127.0.0.1:${DATABASELABORATORY_SPANNER_REST_PORT:-39020}:9020"
   spanner:
     profiles: [spanner]
     image: python:3.13-alpine

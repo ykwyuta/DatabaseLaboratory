@@ -52,7 +52,7 @@ INSERT/DELETE、UPDATE前後、captured columns、DDLによるcapture instance�
 SELECT name,is_cdc_enabled FROM sys.databases WHERE name=DB_NAME();
 SELECT name,is_tracked_by_cdc FROM sys.tables;
 ```
-RavaはCDC未有効です。検証用の別構成でAgentを準備してからcapture/cleanupと再開LSNを確認します。
+DatabaseLaboratoryはCDC未有効です。検証用の別構成でAgentを準備してからcapture/cleanupと再開LSNを確認します。
 
 <a id="sources"></a>
 

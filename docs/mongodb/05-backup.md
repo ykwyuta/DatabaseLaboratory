@@ -24,7 +24,7 @@ mongodump/mongorestoreのBSONバックアップ、整合したファイルsnapsh
 
 ## 取得時の整合性と前提条件
 
-standaloneで更新中の複数collectionをmongodumpするとDB全体の単一時点整合性は保証できません。Ravaでは書き込み停止中に取得するか、replica setへ拡張して--oplog条件を満たします。
+standaloneで更新中の複数collectionをmongodumpするとDB全体の単一時点整合性は保証できません。DatabaseLaboratoryでは書き込み停止中に取得するか、replica setへ拡張して--oplog条件を満たします。
 
 <a id="section-3"></a>
 
@@ -48,11 +48,11 @@ PITRはsnapshotとoplogの継続取得等が必要です。--oplog/--oplogReplay
 
 ## 確認用の例と検証手順
 
-書込みを止めたRavaでの例です。
+書込みを止めたDatabaseLaboratoryでの例です。
 
 ```sh
-docker compose exec -T mongo mongodump --username rava --password 'Rava_Test_2026!' --authenticationDatabase admin --db rava --archive=/tmp/rava.archive --gzip
-docker compose cp mongo:/tmp/rava.archive .local/rava-mongo.archive
+docker compose exec -T mongo mongodump --username dblab --password 'DatabaseLaboratory_Test_2026!' --authenticationDatabase admin --db dblab --archive=/tmp/dblab.archive --gzip
+docker compose cp mongo:/tmp/dblab.archive .local/dblab-mongo.archive
 ```
 別mongodへ `mongorestore --archive=<path> --gzip` で復元し、認証先とnamespaceを確認します。
 

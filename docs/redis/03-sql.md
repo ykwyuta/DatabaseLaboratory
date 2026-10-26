@@ -49,9 +49,9 @@ MULTI/EXECとWATCHの再試行を明示します。Clusterでは複数キー操�
 ## 確認用の例と検証手順
 
 ```text
-TYPE rava:example
-PTTL rava:example
-SCAN 0 MATCH rava:* COUNT 100
+TYPE dblab:example
+PTTL dblab:example
+SCAN 0 MATCH dblab:* COUNT 100
 ```
 未存在キーのTYPE/TTL応答を空値と区別します。
 

@@ -48,11 +48,11 @@ PITRはベースバックアップと連続したWALアーカイブを組み合�
 
 ## 確認用の例と検証手順
 
-Ravaのコンテナー内にdumpを作り、ホストへコピーする例です。既存ファイルを上書きしない一意の名前を使います。
+DatabaseLaboratoryのコンテナー内にdumpを作り、ホストへコピーする例です。既存ファイルを上書きしない一意の名前を使います。
 
 ```sh
-docker compose exec -T postgres pg_dump -U rava -d rava -Fc -f /tmp/rava-backup.dump
-docker compose cp postgres:/tmp/rava-backup.dump .local/rava-backup.dump
+docker compose exec -T postgres pg_dump -U dblab -d dblab -Fc -f /tmp/dblab-backup.dump
+docker compose cp postgres:/tmp/dblab-backup.dump .local/dblab-backup.dump
 ```
 復元先には別DBを作成し、`pg_restore --exit-on-error --no-owner -d <restore_db> <dump>` を実行します。roles/拡張を先に準備し、復元後に照合します。
 

@@ -10,7 +10,7 @@
 - [格納方式とアクセス経路](#section-2)
 - [トランザクションと整合性](#section-3)
 - [モデル設計と避けたい設計](#section-4)
-- [Ravaでの観察ポイント](#section-5)
+- [DatabaseLaboratoryでの観察ポイント](#section-5)
 - [確認用の例と検証手順](#examples)
 - [公式資料と適用範囲](#sources)
 
@@ -40,7 +40,7 @@
 
 <a id="section-5"></a>
 
-## Ravaでの観察ポイント
+## DatabaseLaboratoryでの観察ポイント
 
 顧客1と24の推定/実測計画、hash/sortのspill、exact_valuesの桁を比較します。-1E-8のような指数表記がFLOATになり、VALUES列全体の精度を変えるケースも確認します。
 

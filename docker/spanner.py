@@ -7,9 +7,9 @@ from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 ENDPOINT = os.environ.get('SPANNER_REST_ENDPOINT', 'http://spanner-emulator:9020')
-PROJECT = 'projects/rava-local'
-INSTANCE = PROJECT + '/instances/rava'
-DATABASE = INSTANCE + '/databases/rava'
+PROJECT = 'projects/dblab-local'
+INSTANCE = PROJECT + '/instances/dblab'
+DATABASE = INSTANCE + '/databases/dblab'
 DDL = [
     'CREATE TABLE customers (customer_id INT64 NOT NULL, name STRING(100), note STRING(MAX)) PRIMARY KEY (customer_id)',
     'CREATE TABLE orders (order_id INT64 NOT NULL, customer_id INT64 NOT NULL, amount NUMERIC, ordered_at TIMESTAMP, CONSTRAINT fk_customer FOREIGN KEY (customer_id) REFERENCES customers (customer_id)) PRIMARY KEY (order_id)',
@@ -60,13 +60,13 @@ def query(sql):
 
 def initialize():
     if not exists(INSTANCE):
-        operation(api(PROJECT + '/instances', {'instanceId': 'rava', 'instance': {
+        operation(api(PROJECT + '/instances', {'instanceId': 'dblab', 'instance': {
             'config': PROJECT + '/instanceConfigs/emulator-config',
-            'displayName': 'Rava local emulator', 'nodeCount': 1}}))
+            'displayName': 'DatabaseLaboratory local emulator', 'nodeCount': 1}}))
     if not exists(DATABASE):
-        operation(api(INSTANCE + '/databases', {'createStatement': 'CREATE DATABASE `rava`',
+        operation(api(INSTANCE + '/databases', {'createStatement': 'CREATE DATABASE `dblab`',
                                                'extraStatements': DDL}))
-    if query('SELECT dataset_version FROM demo_ready WHERE id=1') == [['rava-v1']]:
+    if query('SELECT dataset_version FROM demo_ready WHERE id=1') == [['dblab-v1']]:
         return
     mutations = [
         {'insertOrUpdate': {'table': 'customers', 'columns': ['customer_id', 'name', 'note'],
@@ -75,19 +75,19 @@ def initialize():
                             'values': [[str(i + 1), str(1 if i < 900 else i % 2 + 2), '1234.50', '2026-10-01T00:00:00Z'] for i in range(1200)]}},
         {'insertOrUpdate': {'table': 'exact_values', 'columns': ['id', 'big_integer', 'amount'],
                             'values': [['1', '9223372036854775807', '12345678901234567890123.12345678']]}},
-        {'insertOrUpdate': {'table': 'demo_ready', 'columns': ['id', 'dataset_version'], 'values': [['1', 'rava-v1']]}},
+        {'insertOrUpdate': {'table': 'demo_ready', 'columns': ['id', 'dataset_version'], 'values': [['1', 'dblab-v1']]}},
     ]
     session = api(DATABASE + '/sessions', {})['name']
     try:
         api(session + ':commit', {'singleUseTransaction': {'readWrite': {}}, 'mutations': mutations})
     finally:
         api(session, method='DELETE')
-    print('Rava: Spanner GoogleSQL sample data ready', flush=True)
+    print('DatabaseLaboratory: Spanner GoogleSQL sample data ready', flush=True)
 
 
 def verify():
     checks = [
-        ('SELECT dataset_version FROM demo_ready WHERE id=1', [['rava-v1']]),
+        ('SELECT dataset_version FROM demo_ready WHERE id=1', [['dblab-v1']]),
         ('SELECT COUNT(*) FROM customers', [['3']]),
         ('SELECT COUNT(*) FROM orders', [['1200']]),
         ('SELECT COUNT(*) FROM orders WHERE customer_id=1', [['900']]),
@@ -102,7 +102,7 @@ def verify():
 if __name__ == '__main__':
     if '--verify' in sys.argv:
         verify()
-        print('rava-spanner-ok')
+        print('dblab-spanner-ok')
     else:
         # The emulator is in memory. Recreate fixtures automatically after restart.
         while True:

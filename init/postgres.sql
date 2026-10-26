@@ -4923,6 +4923,6 @@ INSERT INTO exact_values VALUES
 (2,-9223372036854775807,-0.00000001,''),
 (3,9007199254740993,99999999999999999999999.99999999,'整数は2^53を超える');
 CREATE VIEW customer_sales AS SELECT c.customer_id,c.name,COUNT(o.order_id) AS order_count,COALESCE(SUM(o.total_amount),0) AS total_amount FROM customers c LEFT JOIN orders o ON o.customer_id=c.customer_id GROUP BY c.customer_id,c.name;
-INSERT INTO demo_ready VALUES (1,'rava-v1');
+INSERT INTO demo_ready VALUES (1,'dblab-v1');
 COMMIT;
 ANALYZE;

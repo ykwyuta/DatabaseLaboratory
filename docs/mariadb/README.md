@@ -4,13 +4,13 @@
 
 対象: MariaDB 11.4 / InnoDB。確認日: 2026-10-26。
 
-Rava構成: 単体サーバー。MySQLとは別のデータボリュームと初期化SQL。
+DatabaseLaboratory構成: 単体サーバー。MySQLとは別のデータボリュームと初期化SQL。
 
 ## 起動と接続
 
 ```sh
-python tools/rava.py up mariadb
-python tools/rava.py verify mariadb
+python tools/dblab.py up mariadb
+python tools/dblab.py verify mariadb
 ```
 
 接続先・ポート・公開された検証用資格情報は[ルートREADME](../../README.md#接続先)を参照してください。
@@ -23,7 +23,7 @@ python tools/rava.py verify mariadb
 - [1.2 格納方式とアクセス経路](01-design.md#section-2)
 - [1.3 トランザクションと整合性](01-design.md#section-3)
 - [1.4 モデル設計と避けたい設計](01-design.md#section-4)
-- [1.5 Ravaでの観察ポイント](01-design.md#section-5)
+- [1.5 DatabaseLaboratoryでの観察ポイント](01-design.md#section-5)
 - [1.6 確認用の例と検証手順](01-design.md#examples)
 - [1.7 公式資料と適用範囲](01-design.md#sources)
 

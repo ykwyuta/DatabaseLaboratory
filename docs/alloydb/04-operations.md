@@ -52,7 +52,7 @@ PostgreSQL系catalog/roleに加えGoogle拡張の設定を台帳化します。�
 SELECT pid,state,wait_event_type,wait_event,pg_blocking_pids(pid) FROM pg_stat_activity;
 SELECT pg_size_pretty(pg_database_size(current_database()));
 ```
-サーバーログは `python tools/rava.py logs alloydb` で取得します。
+サーバーログは `python tools/dblab.py logs alloydb` で取得します。
 
 <a id="sources"></a>
 

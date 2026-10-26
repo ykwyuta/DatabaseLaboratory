@@ -1,5 +1,5 @@
 // Standalone MongoDB: nested documents, arrays, NULL, Unicode, exact BSON types.
-db = db.getSiblingDB('rava');
+db = db.getSiblingDB('dblab');
 db.customers.insertMany([
   {_id: 1, code: 'C0001', name: '東京の顧客', tags: ['法人', '優先'], note: null},
   {_id: 2, code: 'C0002', name: '大阪の顧客', tags: [], note: ''},
@@ -14,4 +14,4 @@ db.orders.insertMany(Array.from({length: 1200}, (_, i) => ({
 db.orders.createIndex({customer_id: 1, ordered_at: 1});
 db.exact_values.insertOne({_id: 1, big_integer: Long('9223372036854775807'),
   amount: Decimal128('12345678901234567890123.12345678')});
-db.demo_ready.insertOne({_id: 1, dataset_version: 'rava-v1'});
+db.demo_ready.insertOne({_id: 1, dataset_version: 'dblab-v1'});

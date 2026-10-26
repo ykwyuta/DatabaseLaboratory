@@ -10,7 +10,7 @@
 - [格納方式とアクセス経路](#section-2)
 - [トランザクションと整合性](#section-3)
 - [モデル設計と避けたい設計](#section-4)
-- [Ravaでの観察ポイント](#section-5)
+- [DatabaseLaboratoryでの観察ポイント](#section-5)
 - [確認用の例と検証手順](#examples)
 - [公式資料と適用範囲](#sources)
 
@@ -30,7 +30,7 @@ WiredTigerのcache・圧縮・journalとB-tree索引を使います。配列のm
 
 ## トランザクションと整合性
 
-単一ドキュメントの更新はatomicです。複数ドキュメントのtransactionはreplica set/sharded clusterが前提で、Ravaのstandaloneでは評価しません。read concernとwrite concernは別に指定します。
+単一ドキュメントの更新はatomicです。複数ドキュメントのtransactionはreplica set/sharded clusterが前提で、DatabaseLaboratoryのstandaloneでは評価しません。read concernとwrite concernは別に指定します。
 
 <a id="section-4"></a>
 
@@ -40,7 +40,7 @@ WiredTigerのcache・圧縮・journalとB-tree索引を使います。配列のm
 
 <a id="section-5"></a>
 
-## Ravaでの観察ポイント
+## DatabaseLaboratoryでの観察ポイント
 
 customersのネスト・配列・null/欠落属性とordersの1200件・偏り、exact_valuesのLong/Decimal128を確認します。SQL表へ平坦化した場合の対応も記録します。
 

@@ -10,7 +10,7 @@
 - [格納方式とアクセス経路](#section-2)
 - [トランザクションと整合性](#section-3)
 - [モデル設計と避けたい設計](#section-4)
-- [Ravaでの観察ポイント](#section-5)
+- [DatabaseLaboratoryでの観察ポイント](#section-5)
 - [確認用の例と検証手順](#examples)
 - [公式資料と適用範囲](#sources)
 
@@ -40,7 +40,7 @@ utf8mb4と照合順序を明示し、大小文字・アクセント・末尾空�
 
 <a id="section-5"></a>
 
-## Ravaでの観察ポイント
+## DatabaseLaboratoryでの観察ポイント
 
 ordersの顧客の偏り、複合索引、DECIMAL、自己参照FKを観察します。buffer poolとデータ量の比を固定して比較します。
 

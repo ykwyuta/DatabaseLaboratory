@@ -57,6 +57,6 @@ SELECT TABSCHEMA,TABNAME,DATACAPTURE FROM SYSCAT.TABLES WHERE TABSCHEMA=CURRENT 
 
 ## 公式資料と適用範囲
 
-現在の検証環境: 単体インスタンスdb2inst1とRAVA DB。HADR/外部CDCは未構成。
+現在の検証環境: 単体インスタンスdb2inst1とDBLAB DB。HADR/外部CDCは未構成。
 
 [IBM replication components](https://www.ibm.com/docs/en/db2/11.5.x?topic=options-replication-tools-by-component) · [レプリケーション時の考慮点](https://www.ibm.com/docs/en/db2/12.1.x?topic=replication-workload-database-considerations)

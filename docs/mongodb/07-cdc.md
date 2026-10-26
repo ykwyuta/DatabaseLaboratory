@@ -18,7 +18,7 @@
 
 ## 差分の取得元と配信経路
 
-change streamsはreplica set/sharded clusterで利用し、oplog由来の変更イベントを取得します。Ravaのstandaloneではwatch()を前提にしません。
+change streamsはreplica set/sharded clusterで利用し、oplog由来の変更イベントを取得します。DatabaseLaboratoryのstandaloneではwatch()を前提にしません。
 
 <a id="section-2"></a>
 

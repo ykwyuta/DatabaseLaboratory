@@ -4,6 +4,8 @@
 
 2026-10-26、WindowsのDocker Desktop / Linux containersで11種類のサーバーDBを起動し、共通ツールによる検証が成功しました。[機械可読レポート](2026-10-26.json)には時刻・使用イメージID・件数照合結果を保存しています。
 
+このレポートはプロジェクト名・接続識別子の変更前に取得した実測記録です。改名後の新規コンテナーで再実行した結果ではありません。
+
 | 対象 | 確認内容 |
 | --- | --- |
 | PostgreSQL / MySQL / MariaDB / SQL Server / Oracle / Db2 / AlloyDB Omni | 9表の件数、日本語、BIGINT、DECIMAL、データ偏り、NULL、ビュー、共通SELECTサンプル |
@@ -21,8 +23,8 @@ SQL Serverでは取得元のサーバー権限付与先、起動時のDB回復�
 再確認:
 
 ```sh
-python tools/rava.py up all
-python tools/rava.py verify
+python tools/dblab.py up all
+python tools/dblab.py verify
 python -m unittest discover -s tests -v
 docker compose --profile "*" config --quiet
 ```

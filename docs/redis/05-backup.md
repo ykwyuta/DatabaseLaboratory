@@ -18,7 +18,7 @@
 
 ## 保護対象と方式の選択
 
-RDBは時点snapshot、AOFはコマンドの永続ログです。AOF有効化は外部バックアップの代わりになりません。Ravaはappendonly yesで、fsyncの実効値も確認します。
+RDBは時点snapshot、AOFはコマンドの永続ログです。AOF有効化は外部バックアップの代わりになりません。DatabaseLaboratoryはappendonly yesで、fsyncの実効値も確認します。
 
 <a id="section-2"></a>
 

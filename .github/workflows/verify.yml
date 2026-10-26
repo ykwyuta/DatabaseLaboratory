@@ -35,10 +35,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - run: python tools/rava.py up ${{ matrix.database }}
-      - run: python tools/rava.py verify ${{ matrix.database }}
+      - run: python tools/dblab.py up ${{ matrix.database }}
+      - run: python tools/dblab.py verify ${{ matrix.database }}
       - if: always()
-        run: python tools/rava.py logs
+        run: python tools/dblab.py logs
       - if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -46,7 +46,7 @@ jobs:
           path: reports/
           if-no-files-found: ignore
       - if: always()
-        run: python tools/rava.py down
+        run: python tools/dblab.py down
   extra:
     if: github.event_name == 'workflow_dispatch' && inputs.extra_database != 'none'
     runs-on: ubuntu-latest
@@ -56,10 +56,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - run: python tools/rava.py up ${{ inputs.extra_database }}
-      - run: python tools/rava.py verify ${{ inputs.extra_database }}
+      - run: python tools/dblab.py up ${{ inputs.extra_database }}
+      - run: python tools/dblab.py verify ${{ inputs.extra_database }}
       - if: always()
-        run: python tools/rava.py logs
+        run: python tools/dblab.py logs
       - if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -67,4 +67,4 @@ jobs:
           path: reports/
           if-no-files-found: ignore
       - if: always()
-        run: python tools/rava.py down
+        run: python tools/dblab.py down

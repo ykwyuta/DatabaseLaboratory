@@ -49,8 +49,8 @@ partition/record識別子と業務キーで冪等化し、watermark/lag・retent
 ## 確認用の例と検証手順
 
 ```sql
--- 本番/対応する追加検証環境向けのDDL例。Ravaでは未作成
-CREATE CHANGE STREAM rava_orders FOR orders OPTIONS (retention_period='1d');
+-- 本番/対応する追加検証環境向けのDDL例。DatabaseLaboratoryでは未作成
+CREATE CHANGE STREAM dblab_orders FOR orders OPTIONS (retention_period='1d');
 ```
 作成operation完了後、snapshot境界、partitionの増減、consumer停止/再開、DELETEとDDLを試験します。
 

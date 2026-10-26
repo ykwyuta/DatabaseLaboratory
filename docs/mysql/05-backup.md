@@ -51,8 +51,8 @@ InnoDBの--single-transactionは一貫した論理スナップショットを取
 コンテナー内で取得し、シェルの文字コード変換を避けてコピーします。
 
 ```sh
-docker compose exec -T -e MYSQL_PWD=Rava_Test_2026! mysql mysqldump -u root --single-transaction --routines --events --triggers --databases rava --result-file=/tmp/rava.sql
-docker compose cp mysql:/tmp/rava.sql .local/rava-mysql.sql
+docker compose exec -T -e MYSQL_PWD=DatabaseLaboratory_Test_2026! mysql mysqldump -u root --single-transaction --routines --events --triggers --databases dblab --result-file=/tmp/dblab.sql
+docker compose cp mysql:/tmp/dblab.sql .local/dblab-mysql.sql
 ```
 このdumpはCREATE DATABASE/USEを含むため、別の隔離したサーバーへ復元します。
 

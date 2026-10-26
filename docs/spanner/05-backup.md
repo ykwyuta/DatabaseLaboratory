@@ -48,10 +48,10 @@ PITRのearliest version timeとretention範囲、バックアップ方式ごと�
 
 ## 確認用の例と検証手順
 
-本番でbackup scheduleとretentionを設定し、別databaseへのrestoreを訓練します。Ravaでは再起動後にfixtureを再生成するだけで、変更済みデータをバックアップ/復元する機能はありません。
+本番でbackup scheduleとretentionを設定し、別databaseへのrestoreを訓練します。DatabaseLaboratoryでは再起動後にfixtureを再生成するだけで、変更済みデータをバックアップ/復元する機能はありません。
 
 ```sh
-python tools/rava.py verify spanner
+python tools/dblab.py verify spanner
 ```
 この成功をバックアップ復旧試験の成功と混同しません。
 

@@ -49,8 +49,8 @@ mariadb-backupの増分はbaseのLSNとチェーンを管理します。PITRは�
 ## 確認用の例と検証手順
 
 ```sh
-docker compose exec -T -e MYSQL_PWD=Rava_Test_2026! mariadb mariadb-dump -u root --single-transaction --routines --events --triggers --databases rava --result-file=/tmp/rava.sql
-docker compose cp mariadb:/tmp/rava.sql .local/rava-mariadb.sql
+docker compose exec -T -e MYSQL_PWD=DatabaseLaboratory_Test_2026! mariadb mariadb-dump -u root --single-transaction --routines --events --triggers --databases dblab --result-file=/tmp/dblab.sql
+docker compose cp mariadb:/tmp/dblab.sql .local/dblab-mariadb.sql
 ```
 隔離した別サーバーへ復元して照合します。物理バックアップ用ツールの同梱はこのComposeでは前提にしません。
 

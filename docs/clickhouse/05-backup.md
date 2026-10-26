@@ -50,10 +50,10 @@ base_backupを参照する増分はベースの保持が必要です。part差�
 
 ```sql
 -- backup先Diskの許可設定がある追加環境向けの方式例
-BACKUP DATABASE rava TO Disk('backups','rava-full.zip');
+BACKUP DATABASE dblab TO Disk('backups','dblab-full.zip');
 SELECT id,status,error FROM system.backups;
 ```
-Rava既定にはbackupsディスクを設定していません。別DB/ノードへのRESTOREまで設計してから設定を追加します。
+DatabaseLaboratory既定にはbackupsディスクを設定していません。別DB/ノードへのRESTOREまで設計してから設定を追加します。
 
 <a id="sources"></a>
 

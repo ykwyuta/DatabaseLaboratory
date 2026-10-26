@@ -24,7 +24,7 @@ WALのlogical decodingや対応するpglogical等で外部へ配信します。O
 
 ## 初期ロードと増分の境界
 
-wal_level、preload extension、slot/sender、権限を対象版の手順に合わせます。snapshotと開始LSNを整合させ、Ravaの既定OmniではCDC設定済みと扱いません。
+wal_level、preload extension、slot/sender、権限を対象版の手順に合わせます。snapshotと開始LSNを整合させ、DatabaseLaboratoryの既定OmniではCDC設定済みと扱いません。
 
 <a id="section-3"></a>
 

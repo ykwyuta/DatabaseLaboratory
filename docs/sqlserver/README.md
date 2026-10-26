@@ -4,13 +4,13 @@
 
 対象: SQL Server 2022 Developer / Linux。確認日: 2026-10-26。
 
-Rava構成: 単体Developer版。Always On・SQL Server AgentのCDCジョブは未構成。
+DatabaseLaboratory構成: 単体Developer版。Always On・SQL Server AgentのCDCジョブは未構成。
 
 ## 起動と接続
 
 ```sh
-python tools/rava.py up sqlserver
-python tools/rava.py verify sqlserver
+python tools/dblab.py up sqlserver
+python tools/dblab.py verify sqlserver
 ```
 
 接続先・ポート・公開された検証用資格情報は[ルートREADME](../../README.md#接続先)を参照してください。
@@ -23,7 +23,7 @@ python tools/rava.py verify sqlserver
 - [1.2 格納方式とアクセス経路](01-design.md#section-2)
 - [1.3 トランザクションと整合性](01-design.md#section-3)
 - [1.4 モデル設計と避けたい設計](01-design.md#section-4)
-- [1.5 Ravaでの観察ポイント](01-design.md#section-5)
+- [1.5 DatabaseLaboratoryでの観察ポイント](01-design.md#section-5)
 - [1.6 確認用の例と検証手順](01-design.md#examples)
 - [1.7 公式資料と適用範囲](01-design.md#sources)
 

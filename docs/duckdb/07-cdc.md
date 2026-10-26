@@ -48,7 +48,7 @@ UPSERT/MERGEやlatest-by-key集約で更新・削除を反映します。列追�
 
 ## 確認用の例と検証手順
 
-取り込み用の追加fixtureにkey/version/deleted/batch_idを用意し、同じdeltaを2回・逆順に適用して最終値を確認します。MERGE対応版ではstagingから適用し、未対応なら置換表作成等を検討します。Ravaは外部CDC/manifest公開を自動構築しません。
+取り込み用の追加fixtureにkey/version/deleted/batch_idを用意し、同じdeltaを2回・逆順に適用して最終値を確認します。MERGE対応版ではstagingから適用し、未対応なら置換表作成等を検討します。DatabaseLaboratoryは外部CDC/manifest公開を自動構築しません。
 
 <a id="sources"></a>
 

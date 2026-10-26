@@ -51,10 +51,10 @@ VERIFYONLYだけで完全な復旧確認とはせず、実復元後にDBCC CHECK
 管理権限が必要です。既存バックアップと異なる一意のパスを指定します。
 
 ```sql
-BACKUP DATABASE rava TO DISK='/var/opt/mssql/rava-copy-only.bak' WITH COPY_ONLY,CHECKSUM;
-RESTORE VERIFYONLY FROM DISK='/var/opt/mssql/rava-copy-only.bak' WITH CHECKSUM;
+BACKUP DATABASE dblab TO DISK='/var/opt/mssql/dblab-copy-only.bak' WITH COPY_ONLY,CHECKSUM;
+RESTORE VERIFYONLY FROM DISK='/var/opt/mssql/dblab-copy-only.bak' WITH CHECKSUM;
 ```
-`docker compose cp sqlserver:/var/opt/mssql/rava-copy-only.bak .local/` で取り出し、隔離した別インスタンスで実復元を試験します。
+`docker compose cp sqlserver:/var/opt/mssql/dblab-copy-only.bak .local/` で取り出し、隔離した別インスタンスで実復元を試験します。
 
 <a id="sources"></a>
 

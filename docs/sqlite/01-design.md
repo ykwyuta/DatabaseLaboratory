@@ -10,7 +10,7 @@
 - [格納方式とアクセス経路](#section-2)
 - [トランザクションと整合性](#section-3)
 - [モデル設計と避けたい設計](#section-4)
-- [Ravaでの観察ポイント](#section-5)
+- [DatabaseLaboratoryでの観察ポイント](#section-5)
 - [確認用の例と検証手順](#examples)
 - [公式資料と適用範囲](#sources)
 
@@ -36,11 +36,11 @@ B-treeとページ、rowidまたはWITHOUT ROWID表を使います。INTEGER PRI
 
 ## モデル設計と避けたい設計
 
-型affinityとSTRICT表を区別し、FKは接続ごとのPRAGMA foreign_keysで有効化します。NUMERIC affinityを任意精度小数と誤認せず、Ravaのexact_values.amountはTEXTで桁を保ちます。
+型affinityとSTRICT表を区別し、FKは接続ごとのPRAGMA foreign_keysで有効化します。NUMERIC affinityを任意精度小数と誤認せず、DatabaseLaboratoryのexact_values.amountはTEXTで桁を保ちます。
 
 <a id="section-5"></a>
 
-## Ravaでの観察ポイント
+## DatabaseLaboratoryでの観察ポイント
 
 ローカルSQLiteファイルを作成し、FK・自己参照・複合PK・大整数・小数TEXTを確認します。別接続で短い書込みと長いreadを行いBUSYとjournal modeを観察します。
 

@@ -30,7 +30,7 @@ EXPLAIN (ANALYZE,BUFFERS)でscan/join/aggregateとGoogle拡張nodeを確認し�
 
 ## SQL統計とボトルネックの特定
 
-pg_stat_activityや利用可能なSQL統計拡張を確認します。RavaのOmni初期化SQLはpg_stat_statementsを作成しないので、必要なら対応拡張とpreload設定を先に準備します。
+pg_stat_activityや利用可能なSQL統計拡張を確認します。DatabaseLaboratoryのOmni初期化SQLはpg_stat_statementsを作成しないので、必要なら対応拡張とpreload設定を先に準備します。
 
 <a id="section-4"></a>
 

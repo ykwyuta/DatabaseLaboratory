@@ -18,7 +18,7 @@
 
 ## 接続先・バージョン・設定
 
-project/instance/database、SQL方言、instance configuration、processing unitsと地域を台帳化します。Ravaではrava-local/rava/ravaとSPANNER_EMULATOR_HOSTを使用します。
+project/instance/database、SQL方言、instance configuration、processing unitsと地域を台帳化します。DatabaseLaboratoryではdblab-local/dblab/dblabとSPANNER_EMULATOR_HOSTを使用します。
 
 <a id="section-2"></a>
 
@@ -52,7 +52,7 @@ client error/retry→query/transaction stats→hotspot/CPU→schema/operation→
 SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='';
 SELECT INDEX_NAME,TABLE_NAME FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_SCHEMA='';
 ```
-Rava初期化/検証は `docker/spanner.py` のREST APIで実装しています。
+DatabaseLaboratory初期化/検証は `docker/spanner.py` のREST APIで実装しています。
 
 <a id="sources"></a>
 

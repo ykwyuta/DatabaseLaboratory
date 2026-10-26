@@ -52,7 +52,7 @@ def dataset():
     rows['exact_values'] = [(1, 9223372036854775807, Decimal('12345678901234567890123.12345678'), None),
                             (2, -9223372036854775807, Decimal('-0.00000001'), ''),
                             (3, 9007199254740993, Decimal('99999999999999999999999.99999999'), '整数は2^53を超える')]
-    rows['demo_ready'] = [(1, 'rava-v1')]
+    rows['demo_ready'] = [(1, 'dblab-v1')]
     return rows
 
 
@@ -80,30 +80,30 @@ def generate_sql(kind, rows):
     elif kind in ('duckdb', 'alloydb'):
         out += ['BEGIN;']
     elif kind == 'mariadb':
-        out += ['SET NAMES utf8mb4;', 'USE rava;']
+        out += ['SET NAMES utf8mb4;', 'USE dblab;']
     elif kind == 'mysql':
-        out += ['SET NAMES utf8mb4;', 'USE rava;',
-                "GRANT SELECT ON performance_schema.* TO 'rava'@'%';",
-                "GRANT SELECT ON sys.* TO 'rava'@'%';",
-                "GRANT EXECUTE ON FUNCTION sys.quote_identifier TO 'rava'@'%';",
-                "GRANT EXECUTE ON FUNCTION sys.format_statement TO 'rava'@'%';",
-                "GRANT EXECUTE ON FUNCTION sys.sys_get_config TO 'rava'@'%';",
-                "GRANT PROCESS ON *.* TO 'rava'@'%';"]
+        out += ['SET NAMES utf8mb4;', 'USE dblab;',
+                "GRANT SELECT ON performance_schema.* TO 'dblab'@'%';",
+                "GRANT SELECT ON sys.* TO 'dblab'@'%';",
+                "GRANT EXECUTE ON FUNCTION sys.quote_identifier TO 'dblab'@'%';",
+                "GRANT EXECUTE ON FUNCTION sys.format_statement TO 'dblab'@'%';",
+                "GRANT EXECUTE ON FUNCTION sys.sys_get_config TO 'dblab'@'%';",
+                "GRANT PROCESS ON *.* TO 'dblab'@'%';"]
     elif kind == 'sqlserver':
-        out += ["IF DB_ID(N'rava') IS NULL CREATE DATABASE rava;", 'GO', 'USE rava;', 'GO',
-                "IF NOT EXISTS(SELECT 1 FROM sys.server_principals WHERE name=N'rava') CREATE LOGIN rava WITH PASSWORD=N'Rava_Test_2026!', CHECK_POLICY=OFF;",
-                'GO', 'USE master;', 'GO', 'GRANT VIEW SERVER PERFORMANCE STATE TO rava;', 'GO', 'USE rava;', 'GO',
-                "IF NOT EXISTS(SELECT 1 FROM sys.database_principals WHERE name=N'rava') CREATE USER rava FOR LOGIN rava;", 'ALTER ROLE db_owner ADD MEMBER rava;',
+        out += ["IF DB_ID(N'dblab') IS NULL CREATE DATABASE dblab;", 'GO', 'USE dblab;', 'GO',
+                "IF NOT EXISTS(SELECT 1 FROM sys.server_principals WHERE name=N'dblab') CREATE LOGIN dblab WITH PASSWORD=N'DatabaseLaboratory_Test_2026!', CHECK_POLICY=OFF;",
+                'GO', 'USE master;', 'GO', 'GRANT VIEW SERVER PERFORMANCE STATE TO dblab;', 'GO', 'USE dblab;', 'GO',
+                "IF NOT EXISTS(SELECT 1 FROM sys.database_principals WHERE name=N'dblab') CREATE USER dblab FOR LOGIN dblab;", 'ALTER ROLE db_owner ADD MEMBER dblab;',
                 'SET XACT_ABORT ON;', 'BEGIN TRANSACTION;']
     elif kind == 'oracle':
         out += ['WHENEVER SQLERROR EXIT SQL.SQLCODE ROLLBACK', 'ALTER SESSION SET CONTAINER=FREEPDB1;',
-                "CREATE TABLESPACE rava DATAFILE '/opt/oracle/oradata/rava.dbf' SIZE 32M AUTOEXTEND ON NEXT 16M MAXSIZE 512M;",
-                'CREATE USER rava IDENTIFIED BY "Rava_Test_2026!" DEFAULT TABLESPACE rava QUOTA UNLIMITED ON rava;',
-                'GRANT CREATE SESSION, CREATE TABLE, CREATE VIEW, CREATE SEQUENCE, ALTER SESSION TO rava;',
-                'GRANT SELECT ON SYS.V_$PARAMETER TO rava;', 'GRANT SELECT ON SYS.V_$SESSION TO rava;',
-                'GRANT SELECT ON SYS.V_$SQL TO rava;',
-                'GRANT SELECT ON SYS.V_$SQL_PLAN_STATISTICS_ALL TO rava;',
-                'ALTER SESSION SET CURRENT_SCHEMA=rava;']
+                "CREATE TABLESPACE dblab DATAFILE '/opt/oracle/oradata/dblab.dbf' SIZE 32M AUTOEXTEND ON NEXT 16M MAXSIZE 512M;",
+                'CREATE USER dblab IDENTIFIED BY "DatabaseLaboratory_Test_2026!" DEFAULT TABLESPACE dblab QUOTA UNLIMITED ON dblab;',
+                'GRANT CREATE SESSION, CREATE TABLE, CREATE VIEW, CREATE SEQUENCE, ALTER SESSION TO dblab;',
+                'GRANT SELECT ON SYS.V_$PARAMETER TO dblab;', 'GRANT SELECT ON SYS.V_$SESSION TO dblab;',
+                'GRANT SELECT ON SYS.V_$SQL TO dblab;',
+                'GRANT SELECT ON SYS.V_$SQL_PLAN_STATISTICS_ALL TO dblab;',
+                'ALTER SESSION SET CURRENT_SCHEMA=dblab;']
     elif kind == 'sqlite':
         out += ['PRAGMA foreign_keys=ON;', 'BEGIN;']
     for table, ddl in schema(kind):
@@ -143,7 +143,7 @@ def generate_sql(kind, rows):
         out += [f"CALL SYSPROC.ADMIN_CMD('RUNSTATS ON TABLE DB2INST1.{t.upper()} WITH DISTRIBUTION AND DETAILED INDEXES ALL');" for t in ('CUSTOMERS','ORDERS','ORDER_ITEMS','PRODUCTS')]
         out += ["CALL SYSPROC.SYSINSTALLOBJECTS('EXPLAIN','C',CAST(NULL AS VARCHAR(128)),CURRENT SCHEMA);"]
     elif kind == 'oracle':
-        out += ["BEGIN DBMS_STATS.GATHER_SCHEMA_STATS('RAVA'); END;", '/', 'EXIT']
+        out += ["BEGIN DBMS_STATS.GATHER_SCHEMA_STATS('DBLAB'); END;", '/', 'EXIT']
     return '\n'.join(out)+'\n'
 
 

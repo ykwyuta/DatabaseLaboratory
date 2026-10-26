@@ -10,7 +10,7 @@
 - [格納方式とアクセス経路](#section-2)
 - [トランザクションと整合性](#section-3)
 - [モデル設計と避けたい設計](#section-4)
-- [Ravaでの観察ポイント](#section-5)
+- [DatabaseLaboratoryでの観察ポイント](#section-5)
 - [確認用の例と検証手順](#examples)
 - [公式資料と適用範囲](#sources)
 
@@ -40,7 +40,7 @@ MVCCにより読み取りスナップショットを作ります。既定はREAD
 
 <a id="section-5"></a>
 
-## Ravaでの観察ポイント
+## DatabaseLaboratoryでの観察ポイント
 
 ordersの顧客1と顧客24で選択性を比較します。employeesの自己参照FK、order_itemsの複合PK、exact_valuesのDECIMALを確認し、autovacuumと更新頻度の関係を考察します。
 
