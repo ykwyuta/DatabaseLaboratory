@@ -1,0 +1,176 @@
+{
+  "verified_at_utc": "2026-10-26T14:06:52.290770+00:00",
+  "databases": [
+    {
+      "service": "alloydb",
+      "status": "passed",
+      "image": "sha256:06dbb197d6223ea202b34f1cf417515c6a31176af6e2437447369a01846c2894",
+      "images": {
+        "alloydb": "sha256:1bea307dfb3ee30541a7acf7de14b58bcd6948da98e5d31a04c627c4d35ec64b",
+        "alloydb-server": "sha256:06dbb197d6223ea202b34f1cf417515c6a31176af6e2437447369a01846c2894"
+      },
+      "counts": {
+        "customers": 24,
+        "demo_ready": 1,
+        "departments": 3,
+        "employees": 8,
+        "exact_values": 3,
+        "order_items": 3600,
+        "orders": 1200,
+        "products": 8,
+        "support_tickets": 6
+      }
+    },
+    {
+      "service": "clickhouse",
+      "status": "passed",
+      "image": "sha256:7eab9ba1be84f152e812ce8f92276154906c89fa3eb347805c110ed2354f8e9c",
+      "images": {
+        "clickhouse": "sha256:7eab9ba1be84f152e812ce8f92276154906c89fa3eb347805c110ed2354f8e9c"
+      },
+      "counts": {}
+    },
+    {
+      "service": "db2",
+      "status": "passed",
+      "image": "sha256:10e6b4ac377b412930b70371b3e40f38e9d305780ca43b1b8400c28f16fe4bbc",
+      "images": {
+        "db2": "sha256:10e6b4ac377b412930b70371b3e40f38e9d305780ca43b1b8400c28f16fe4bbc"
+      },
+      "counts": {
+        "customers": 24,
+        "demo_ready": 1,
+        "departments": 3,
+        "employees": 8,
+        "exact_values": 3,
+        "order_items": 3600,
+        "orders": 1200,
+        "products": 8,
+        "support_tickets": 6
+      }
+    },
+    {
+      "service": "mariadb",
+      "status": "passed",
+      "image": "sha256:823a099a93df6416c6c7ed33c79a2d43e92ffbd2ccc0e83973ef045f2dae1ac0",
+      "images": {
+        "mariadb": "sha256:823a099a93df6416c6c7ed33c79a2d43e92ffbd2ccc0e83973ef045f2dae1ac0"
+      },
+      "counts": {
+        "customers": 24,
+        "demo_ready": 1,
+        "departments": 3,
+        "employees": 8,
+        "exact_values": 3,
+        "order_items": 3600,
+        "orders": 1200,
+        "products": 8,
+        "support_tickets": 6
+      }
+    },
+    {
+      "service": "mongo",
+      "status": "passed",
+      "image": "sha256:09f940d01e0c09abbfd246a2b10965cbf86a87c9c1dad86b374f925a084976c8",
+      "images": {
+        "mongo": "sha256:09f940d01e0c09abbfd246a2b10965cbf86a87c9c1dad86b374f925a084976c8"
+      },
+      "counts": {}
+    },
+    {
+      "service": "mysql",
+      "status": "passed",
+      "image": "sha256:4aae07a2c195abb9b3e92449443b39b51212f555a35ff8f93da0e82683f45de8",
+      "images": {
+        "mysql": "sha256:4aae07a2c195abb9b3e92449443b39b51212f555a35ff8f93da0e82683f45de8"
+      },
+      "counts": {
+        "customers": 24,
+        "demo_ready": 1,
+        "departments": 3,
+        "employees": 8,
+        "exact_values": 3,
+        "order_items": 3600,
+        "orders": 1200,
+        "products": 8,
+        "support_tickets": 6
+      }
+    },
+    {
+      "service": "oracle",
+      "status": "passed",
+      "image": "sha256:f7adf0df970bd660d65608bdd1ba14f4ce735e8c8f0e1d4a87cb9cb010cca3c0",
+      "images": {
+        "oracle": "sha256:f7adf0df970bd660d65608bdd1ba14f4ce735e8c8f0e1d4a87cb9cb010cca3c0"
+      },
+      "counts": {
+        "customers": 24,
+        "demo_ready": 1,
+        "departments": 3,
+        "employees": 8,
+        "exact_values": 3,
+        "order_items": 3600,
+        "orders": 1200,
+        "products": 8,
+        "support_tickets": 6
+      }
+    },
+    {
+      "service": "postgres",
+      "status": "passed",
+      "image": "sha256:1bea307dfb3ee30541a7acf7de14b58bcd6948da98e5d31a04c627c4d35ec64b",
+      "images": {
+        "postgres": "sha256:1bea307dfb3ee30541a7acf7de14b58bcd6948da98e5d31a04c627c4d35ec64b"
+      },
+      "counts": {
+        "customers": 24,
+        "demo_ready": 1,
+        "departments": 3,
+        "employees": 8,
+        "exact_values": 3,
+        "order_items": 3600,
+        "orders": 1200,
+        "products": 8,
+        "support_tickets": 6
+      }
+    },
+    {
+      "service": "redis",
+      "status": "passed",
+      "image": "sha256:4df5c34dc41256fc4ed293482cb34281e17d133077e9aa3c6a87fda60a356c65",
+      "images": {
+        "redis": "sha256:4df5c34dc41256fc4ed293482cb34281e17d133077e9aa3c6a87fda60a356c65"
+      },
+      "counts": {}
+    },
+    {
+      "service": "spanner",
+      "status": "passed",
+      "image": "sha256:bd5dce5cbea6ec9ae9a29369516af2dd4cd06289a6c34bb9118b44184a2df56c",
+      "images": {
+        "spanner": "sha256:efefaa77285b1929a6a9499ffccada2d1793bf43bed8729b5ebdb6cb59dae4b8",
+        "spanner-emulator": "sha256:bd5dce5cbea6ec9ae9a29369516af2dd4cd06289a6c34bb9118b44184a2df56c"
+      },
+      "counts": {}
+    },
+    {
+      "service": "sqlserver",
+      "status": "passed",
+      "image": "sha256:7fb2139341715e8a71843cfc2f02bab6e95f1c52c0fa9f9a6b2e7b761f060780",
+      "images": {
+        "sqlserver": "sha256:7fb2139341715e8a71843cfc2f02bab6e95f1c52c0fa9f9a6b2e7b761f060780"
+      },
+      "counts": {
+        "customers": 24,
+        "demo_ready": 1,
+        "departments": 3,
+        "employees": 8,
+        "exact_values": 3,
+        "order_items": 3600,
+        "orders": 1200,
+        "products": 8,
+        "support_tickets": 6
+      }
+    }
+  ]
+}
